@@ -14,7 +14,7 @@ DB: '"';
 LP: '{'; RP : '}'; LB : '('; RB : ')';
 COMMA : ','; COLON : ':'; SEMI : ';';
 ATOMICTYPE : 'integer' | 'float' | 'boolean' | 'string';
-TYPECONST :  'auto' | 'array';
+TYPECONST :  'auto';
 REMAINOP : '%';
 ADDOP : '+'; ASSIGNOP : '='; MULOP : '*';DIVOP : '/'; SUBOP : '-';
 AND : '&&'; OR : '||'; NEG: '!'; EQ: '=='; NE : '!='; LT : '<'; GT : '>'; LE : '<=';GE : '>=';
@@ -28,8 +28,8 @@ stringlst : STRINGLIT COMMA stringlst | STRINGLIT;
 idenlist : IDENTIFY COMMA idenlist | IDENTIFY;
 
 // declare 
-vardecl : idenlist ':' (TYPECONST|ATOMICTYPE|arrDecl) | helper;
-helper : IDENTIFY COMMA helper COMMA expr | IDENTIFY COLON (TYPECONST|ATOMICTYPE|arrDecl) '=' expr; 
+vardecl : idenlist ':' ('auto'|ATOMICTYPE|arrDecl) | helper;
+helper : IDENTIFY COMMA helper COMMA expr | IDENTIFY COLON ('auto'|ATOMICTYPE|arrDecl) '=' expr; 
 
 // function declare
 parameterdecl : 'inherit'? 'out'? IDENTIFY ':' (TYPECONST|ATOMICTYPE | arrDecl);

@@ -1,3 +1,1 @@
-//This is cmment
-/*This is comment*/
-123 1_23
+123 abc

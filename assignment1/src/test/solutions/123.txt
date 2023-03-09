@@ -1,1 +1,1 @@
-array,<EOF>
+sbc, \t,<EOF>

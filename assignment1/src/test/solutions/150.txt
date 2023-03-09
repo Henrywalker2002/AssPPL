@@ -1,1 +1,1 @@
-],<EOF>
+float,<EOF>

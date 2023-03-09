@@ -1,1 +1,1 @@
-while,<EOF>
+7E-10,<EOF>

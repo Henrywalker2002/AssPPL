@@ -1,1 +1,1 @@
-of,<EOF>
+_str,<EOF>

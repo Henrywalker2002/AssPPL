@@ -1,1 +1,1 @@
-string,<EOF>
+abcd \t anb \b,<EOF>

@@ -1,1 +1,1 @@
-function,<EOF>
+1.2e3,<EOF>

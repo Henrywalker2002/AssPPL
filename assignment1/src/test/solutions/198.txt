@@ -1,1 +1,1 @@
-a,,,b,:,auto,;,a,=,b,=,1,;,<EOF>
+Error Token \

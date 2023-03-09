@@ -3,262 +3,336 @@ from TestUtils import TestLexer
 
 
 class LexerSuite(unittest.TestCase):
-    # Test Identifier
-    def test1(self):
-        self.assertTrue(TestLexer.test('giahuy\t', 'giahuy,<EOF>', 101))
-    def test2(self):
-        self.assertTrue(TestLexer.test('1ab2', '1,ab2,<EOF>', 102))
-    def test3(self):
-        self.assertTrue(TestLexer.test('abc', 'abc,<EOF>', 103))
-    def test4(self):
-        self.assertTrue(TestLexer.test('_ppl', '_ppl,<EOF>', 104))
-    def test5(self):
-        self.assertTrue(TestLexer.test('Print()', 'Print,(,),<EOF>', 105))
-    def test6(self):
-        self.assertTrue(TestLexer.test('&abc','Error Token &', 106))
-    def test7(self):
-        self.assertTrue(TestLexer.test('giahuy_1092002', 'giahuy_1092002,<EOF>', 107))
-    def test8(self):
-        self.assertTrue(TestLexer.test('_123', '_123,<EOF>', 108))
-    def test9(self):
-        self.assertTrue(TestLexer.test('_123', '_123,<EOF>', 109))
-    def test10(self):
-        self.assertTrue(TestLexer.test('giahuy_bachkhoa', 'giahuy_bachkhoa,<EOF>', 110))
-    # Test Keywords
-    def test11(self):
-        self.assertTrue(TestLexer.test('inherit', 'inherit,<EOF>', 111))
-    def test12(self):
-        self.assertTrue(TestLexer.test('integer', 'integer,<EOF>', 112))
-    def test13(self):
-        self.assertTrue(TestLexer.test('boolean', 'boolean,<EOF>', 113))
-    def test14(self):
-        self.assertTrue(TestLexer.test('do', 'do,<EOF>', 114))
-    def test15(self):
-        self.assertTrue(TestLexer.test('while', 'while,<EOF>', 115))
-    def test16(self):
-        self.assertTrue(TestLexer.test('function', 'function,<EOF>', 116))
-    def test17(self):
-        self.assertTrue(TestLexer.test('auto', 'auto,<EOF>', 117))
-    def test18(self):
-        self.assertTrue(TestLexer.test('continue', 'continue,<EOF>', 118))
-    def test19(self):
-        self.assertTrue(TestLexer.test('break', 'break,<EOF>', 119))
-    def test20(self):
-        self.assertTrue(TestLexer.test('of', 'of,<EOF>', 120))
-    def test21(self):
-        self.assertTrue(TestLexer.test('else', 'else,<EOF>', 121))
-    def test22(self):
-        self.assertTrue(TestLexer.test('string', 'string,<EOF>', 122))
-    def test23(self):
-        self.assertTrue(TestLexer.test('array', 'array,<EOF>', 123))
-    def test24(self):
-        self.assertTrue(TestLexer.test('void', 'void,<EOF>', 124))
-    def test25(self):
-        self.assertTrue(TestLexer.test('false', 'false,<EOF>', 125))
-    def test26(self):
-        self.assertTrue(TestLexer.test('return', 'return,<EOF>', 126))
-    def test27(self):
-        self.assertTrue(TestLexer.test('float', 'float,<EOF>', 127))
-    def test28(self):
-        self.assertTrue(TestLexer.test('out', 'out,<EOF>', 128))
-    def test29(self):
-        self.assertTrue(TestLexer.test('true', 'true,<EOF>', 129))
-    def test30(self):
-        self.assertTrue(TestLexer.test('if', 'if,<EOF>', 130))
-    def test31(self):
-        self.assertTrue(TestLexer.test('for', 'for,<EOF>', 131))
-    # Test operators
-    def test32(self):
-        self.assertTrue(TestLexer.test('+', '+,<EOF>', 132))
-    def test33(self):
-        self.assertTrue(TestLexer.test('!', '!,<EOF>', 133))
-    def test34(self):
-        self.assertTrue(TestLexer.test('!=', '!=,<EOF>', 134))
-    def test35(self):
-        self.assertTrue(TestLexer.test('::', '::,<EOF>', 135))
-    def test36(self):
-        self.assertTrue(TestLexer.test('-', '-,<EOF>', 136))
-    def test37(self):
-        self.assertTrue(TestLexer.test('&&', '&&,<EOF>', 137))
-    def test38(self):
-        self.assertTrue(TestLexer.test('<', '<,<EOF>', 138))
-    def test39(self):
-        self.assertTrue(TestLexer.test('*', '*,<EOF>', 139))
-    def test40(self):
-        self.assertTrue(TestLexer.test('||', '||,<EOF>', 140))
-    def test41(self):
-        self.assertTrue(TestLexer.test('<=', '<=,<EOF>', 141))
-    def test42(self):
-        self.assertTrue(TestLexer.test('/', '/,<EOF>', 142))
-    def test43(self):
-        self.assertTrue(TestLexer.test('==', '==,<EOF>', 143))
-    def test44(self):
-        self.assertTrue(TestLexer.test('>', '>,<EOF>', 144))
-    def test45(self):
-        self.assertTrue(TestLexer.test('%', '%,<EOF>', 145))
-    def test46(self):
-        self.assertTrue(TestLexer.test('>=', '>=,<EOF>', 146))
-    # Test seperators
-    def test47(self):
-        self.assertTrue(TestLexer.test('(', '(,<EOF>', 147))
-    def test48(self):
-        self.assertTrue(TestLexer.test(')', '),<EOF>', 148))
-    def test49(self):
-        self.assertTrue(TestLexer.test('[', '[,<EOF>', 149))
-    def test50(self):
-        self.assertTrue(TestLexer.test(']', '],<EOF>', 150))
-    def test51(self):
-        self.assertTrue(TestLexer.test('.', 'Error Token .', 151))
-    def test52(self):
-        self.assertTrue(TestLexer.test(',', ',,<EOF>', 152))
-    def test53(self):
-        self.assertTrue(TestLexer.test(';', ';,<EOF>', 153))
-    def test54(self):
-        self.assertTrue(TestLexer.test(':', ':,<EOF>', 154))
-    def test55(self):
-        self.assertTrue(TestLexer.test('{', '{,<EOF>', 155))
-    def test56(self):
-        self.assertTrue(TestLexer.test('}', '},<EOF>', 156))
-    # Test Literals
-    # Test Intlit
-    def test57(self):
-        self.assertTrue(TestLexer.test('1092002', '1092002,<EOF>', 157))
-        
-    def test58(self):
-        self.assertTrue(TestLexer.test('10_9_2002', '1092002,<EOF>', 158))
-        
-    def test59(self):
-        self.assertTrue(TestLexer.test('123_456', '123456,<EOF>', 159))
-        
-    def test60(self):
-        self.assertTrue(TestLexer.test('1_2_3_4', '1234,<EOF>', 160))
-        
-    def test61(self):
-        self.assertTrue(TestLexer.test('1__2', '12,<EOF>', 161))
-        
-    def test62(self):
-        self.assertTrue(TestLexer.test('0828479273', '0,828479273,<EOF>', 162))
-        
-    def test63(self):
-        self.assertTrue(TestLexer.test('1092002_', '1092002,_,<EOF>', 163))
-        
-    def test64(self):
-        self.assertTrue(TestLexer.test('10_9_2002_', '1092002,_,<EOF>', 164))
-        
-    def test65(self):
-        self.assertTrue(TestLexer.test('_45_6', '_45_6,<EOF>', 165))
-        
-    def test66(self):
-        self.assertTrue(TestLexer.test('456_', '456,_,<EOF>', 166))
-    # Test Floatlit
-    def test67(self):
-        self.assertTrue(TestLexer.test('1_234.567', '1234.567,<EOF>', 167))
-        
-    def test68(self):
-        self.assertTrue(TestLexer.test('10_9.5e67', '109.5e67,<EOF>', 168))
-        
-    def test69(self):
-        self.assertTrue(TestLexer.test('10_9.56e-7', '109.56e-7,<EOF>', 169))
-        
-    def test70(self):
-        self.assertTrue(TestLexer.test('10_9.56E-7', '109.56E-7,<EOF>', 170))
-        
-    def test71(self):
-        self.assertTrue(TestLexer.test('10.9e2', '10.9e2,<EOF>', 171))
-        
-    def test72(self):
-        self.assertTrue(TestLexer.test('10.9e-2', '10.9e-2,<EOF>', 172))
-        
-    def test73(self):
-        self.assertTrue(TestLexer.test('10.9E2', '10.9E2,<EOF>', 173))
-        
-    def test74(self):
-        self.assertTrue(TestLexer.test('10E-9', '10E-9,<EOF>', 174))
-        
-    def test75(self):
-        self.assertTrue(TestLexer.test('10e-9', '10e-9,<EOF>', 175))
-        
-    def test76(self):
-        self.assertTrue(TestLexer.test('10e9', '10e9,<EOF>', 176))
-        
-    def test77(self):
-        self.assertTrue(TestLexer.test('10_9e2', '109e2,<EOF>', 177))
-        
-    def test78(self):
-        self.assertTrue(TestLexer.test('10.9', '10.9,<EOF>', 178))
-        
-    def test79(self):
-        self.assertTrue(TestLexer.test('1.e2', '1.e2,<EOF>', 179))
-    # Test Stringlit
-    def test80(self):
-        self.assertTrue(TestLexer.test('""', ',<EOF>', 180))
-        
-    def test81(self):
-        self.assertTrue(TestLexer.test('" "', ' ,<EOF>', 181))
-        
-    def test82(self):
-        self.assertTrue(TestLexer.test('"Nguyen Luong Gia Huy"', 'Nguyen Luong Gia Huy,<EOF>', 182))
-        
-    def test83(self):
-        self.assertTrue(TestLexer.test('"BACH KHOA"', 'BACH KHOA,<EOF>', 183))
-        
-    def test84(self):
-        self.assertTrue(TestLexer.test('"Nguyen ly ngon ngu lap trinh"', 'Nguyen ly ngon ngu lap trinh,<EOF>', 184))
-        
-    def test85(self):
-        self.assertTrue(TestLexer.test('"1092002"', '1092002,<EOF>', 185))
-        
-    def test86(self):
-        self.assertTrue(TestLexer.test('"giahuy1092002"', 'giahuy1092002,<EOF>', 186))
-        
-    def test87(self):
-        self.assertTrue(TestLexer.test('"h3llo W0rld!"', 'h3llo W0rld!,<EOF>', 187))
-        
-    def test88(self):
-        self.assertTrue(TestLexer.test('"301AH2"', '301AH2,<EOF>', 188))
-        
-    def test89(self):
-        self.assertTrue(TestLexer.test('"Hello World"', 'Hello World,<EOF>', 189))
-        
-    def test90(self):
-        self.assertTrue(TestLexer.test('"123"', '123,<EOF>', 190))
-        
-    def test91(self):
-        self.assertTrue(TestLexer.test('"xyz"', 'xyz,<EOF>', 191))
-        
-    def test92(self):
-        self.assertTrue(TestLexer.test('func1 : function integer(a : array of integer = {1,2,3}){return 1;}', 'func1,:,function,integer,(,a,:,array,of,integer,=,{,1,,,2,,,3,},),{,return,1,;,},<EOF>', 192))
-        
-    def test93(self):
-        self.assertTrue(TestLexer.test(' "\\c 123" ', 'Illegal Escape In String: \c', 193))
-        
-    def test94(self):
-        self.assertTrue(TestLexer.test('"String', 'Unclosed String: String', 194))
-    
-    def test95(self):
-        self.assertTrue(TestLexer.test('//This is cmment\n/*This is comment*/\n123 1_23', "123,123,<EOF>", 195))
-        
-    def test96(self):
-        self.assertTrue(TestLexer.test('"Truong Ha Kieu Nhi"', 'Truong Ha Kieu Nhi,<EOF>', 196))
-        
-    def test97(self):
-        self.assertTrue(TestLexer.test('"He asked me: \\"Where is \\"John?\\""','He asked me: \\"Where is \\"John?\\",<EOF>', 197))
-        
-    def test98(self):
-        self.assertTrue(TestLexer.test('a,b : auto; a = b = 1;', 'a,,,b,:,auto,;,a,=,b,=,1,;,<EOF>', 198))
-        
-    def test99(self):
-        self.assertTrue(TestLexer.test(' "aaa\\" ', 'Unclosed String: aaa\\" ', 199))
-        
-    def test100(self):
-        self.assertTrue(TestLexer.test('"a:integer=?"','a:integer=?,<EOF>',200))
 
-    def test101(self):
-        self.assertTrue(TestLexer.test('0.0','0.0,<EOF>',201))
-    
-    
-    
-    
-    
-    
-    
+     def test0(self):
+          input = """{"""
+          expect = "{,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,100))
+     def test1(self):
+          input = """"""
+          expect = "<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,101))
+     #comment
+     def test2(self):
+          input = """//abc+46/"""
+          expect = "<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,102))
+     def test3(self):
+          input = """/* akjkba
+                     */ """
+          expect = "<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,103))
+     def test4(self):
+          input = """abc /*kabh*/ abc"""
+          expect = "abc,abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,104))
+     def test5(self):
+          input = """123//abc+46/"""
+          expect = "123,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,105))
+     #int
+     def test6(self):
+          input = """123"""
+          expect = "123,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,106))
+     def test7(self):
+          input = """01"""
+          expect = "0,1,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,107))
+     def test8(self):
+          input = """12_3_4"""
+          expect = "1234,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,108))
+     def test9(self):
+          input = """0123"""
+          expect = "0,123,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,109))
+     def test10(self):
+          input = """123_"""
+          expect = "123,_,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,110))
+     #float
+     def test11(self):
+          input = """1_2.012"""
+          expect = "12.012,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,111))
+     def test12(self):
+          input = """1.123"""
+          expect = "1.123,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,112))
+     def test13(self):
+          input = """0"""
+          expect = "0,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,113))
+     def test14(self):
+          input = """0.0"""
+          expect = "0.0,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,114))
+     def test15(self):
+          input = """7E-10"""
+          expect = "7E-10,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,115))
+     def test16(self):
+          input = """1.2e3"""
+          expect = "1.2e3,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,116))
+     def test17(self):
+          input = """1_23.2e3"""
+          expect = "123.2e3,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,117))
+     def test18(self):
+          input = """1_23.2e+3"""
+          expect = "123.2e+3,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,118))
+     #test keyword
+     def test19(self):
+          input = """auto"""
+          expect = "auto,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,119))
+     #test string
+     def test20(self):
+          input = """\"_str\""""
+          expect = "_str,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,120))
+     def test21(self):
+          input = """\"abcd\""""
+          expect = "abcd,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,121))
+     #**** check \t************************************
+     def test22(self):
+          input = """\"abcd \\t anb \\b\""""
+          expect = "abcd \\t anb \\b,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,122))
+     def test23(self):
+          input = """sbc \" \\t\""""
+          expect = "sbc, \\t,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,123))
+     def test24(self):
+          input = """\"abcd \\t ab+/*()89\""""
+          expect = "abcd \\t ab+/*()89,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,124))
+     #identifi
+     def test25(self):
+          input = """12a"""
+          expect = "12,a,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,125))
+     def test26(self):
+          input = """12,a"""
+          expect = "12,,,a,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,126))
+     def test27(self):
+          input = """12?a"""
+          expect = "12,Error Token ?"
+          self.assertTrue(TestLexer.test(input,expect,127))
+     def test28(self):
+          input = """12 abc 1.2"""
+          expect = "12,abc,1.2,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,128))
+     #check error
+     def test29(self):
+          input = """\"abcj"""
+          expect = "Unclosed String: abcj"
+          self.assertTrue(TestLexer.test(input,expect,129))
+     def test30(self):
+          input = """\"abcj\t\""""
+          expect = "abcj\t,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,130))
+     #test iden
+     def test31(self):
+          input = """_abc"""
+          expect = "_abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,131))
+     def test32(self):
+          input = """abc+"""
+          expect = "abc,+,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,132))
+     def test33(self):
+          input = """abc_+-"""
+          expect = "abc_,+,-,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,133))
+     def test34(self):
+          input = """:: abc n"""
+          expect = "::,abc,n,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,134))
+     def test35(self):
+          input = """1.e-2"""
+          expect = "1.e-2,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,135)) 
+     def test36(self):
+          input = """1.e"""
+          expect = "1.,e,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,136))
+     def test37(self):
+          input = """.e3"""
+          expect = "Error Token ."
+          self.assertTrue(TestLexer.test(input,expect,137))
+     def test38(self):
+          input = """{1, 5, 7, 12}"""
+          expect = "{,1,,,5,,,7,,,12,},<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,138))
+     def test39(self):
+          input = """\"abc \\h\""""
+          expect = "Illegal Escape In String: abc \h"
+          self.assertTrue(TestLexer.test(input,expect,139))
+     def test40(self):
+          input = """\"abc \\'\""""
+          expect = "abc \\',<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,140))
+     def test41(self):
+        input = """ "'test\\n and \t {"-"#\b\\n" """
+        expect = """'test\\n and \t {,-,#\b\\n,<EOF>"""
+        self.assertTrue(TestLexer.test(input, expect, 141))
+     def test42(self):
+          input = """\"abc\t"""
+          expect = "Unclosed String: abc	"
+          self.assertTrue(TestLexer.test(input,expect,142))
+     def test43(self):
+        input = """"'ITNzHSF\n" """
+        expect = """Unclosed String: 'ITNzHSF"""
+        self.assertTrue(TestLexer.test(input, expect, 143))
+     def test44(self):
+        input = """ 1__23 """
+        expect = """123,<EOF>"""
+        self.assertTrue(TestLexer.test(input, expect, 144))
+     def testKeyWord145(self):
+        self.assertTrue(TestLexer.test('auto','auto,<EOF>',145))
+     def testKeyWord146(self):
+          self.assertTrue(TestLexer.test('break','break,<EOF>',146))
+     def testKeyWord147(self):
+          self.assertTrue(TestLexer.test('boolean','boolean,<EOF>',147))
+     def testKeyWord148(self):
+          self.assertTrue(TestLexer.test('do','do,<EOF>',148))
+     def testKeyWord149(self):
+          self.assertTrue(TestLexer.test('else','else,<EOF>',149))
+     def testKeyWord150(self):
+          self.assertTrue(TestLexer.test('float','float,<EOF>',150))
+     def testKeyWord151(self):
+          self.assertTrue(TestLexer.test('for','for,<EOF>',151))
+     def testKeyWord152(self):
+          self.assertTrue(TestLexer.test('function','function,<EOF>',152))
+     def testKeyWord153(self):
+          self.assertTrue(TestLexer.test('if','if,<EOF>',153))
+     def testKeyWord154(self):
+          self.assertTrue(TestLexer.test('integer','integer,<EOF>',154))
+     def testKeyWord155(self):
+          self.assertTrue(TestLexer.test('return','return,<EOF>',155))
+     def testKeyWord156(self):
+          self.assertTrue(TestLexer.test('string','string,<EOF>',156))
+     def testKeyWord157(self):
+          self.assertTrue(TestLexer.test('while','while,<EOF>',157))
+     def testKeyWord158(self):
+          self.assertTrue(TestLexer.test('void','void,<EOF>',158))
+     def testKeyWord159(self):
+          self.assertTrue(TestLexer.test('out','out,<EOF>',159))
+     def testKeyWord160(self):
+          self.assertTrue(TestLexer.test('continue','continue,<EOF>',160))
+     def testKeyWord161(self):
+          self.assertTrue(TestLexer.test('of','of,<EOF>',161))
+     def testKeyWord162(self):
+          self.assertTrue(TestLexer.test('inherit','inherit,<EOF>',162))
+     def testKeyWord163(self):
+          self.assertTrue(TestLexer.test('array','array,<EOF>',163))
+     def testKeyWord164(self):
+        self.assertTrue(TestLexer.test('+','+,<EOF>',164))
+     def testKeyWord165(self):
+          self.assertTrue(TestLexer.test('-','-,<EOF>',165))
+     def testKeyWord166(self):
+          self.assertTrue(TestLexer.test('*','*,<EOF>',166))
+     def testKeyWord167(self):
+          self.assertTrue(TestLexer.test('/','/,<EOF>',167))
+     def testKeyWord168(self):
+          self.assertTrue(TestLexer.test('%','%,<EOF>',168))
+     def testKeyWord169(self):
+          self.assertTrue(TestLexer.test('!','!,<EOF>',169))
+     def testKeyWord170(self):
+          self.assertTrue(TestLexer.test('&&','&&,<EOF>',170))
+     def testKeyWord171(self):
+          self.assertTrue(TestLexer.test('||','||,<EOF>',171))
+     def testKeyWord172(self):
+          self.assertTrue(TestLexer.test('==','==,<EOF>',172))
+     def testKeyWord173(self):
+          self.assertTrue(TestLexer.test('!=','!=,<EOF>',173))
+     def testKeyWord174(self):
+          self.assertTrue(TestLexer.test('<','<,<EOF>',174))
+     def testKeyWord175(self):
+          self.assertTrue(TestLexer.test('<=','<=,<EOF>',175))
+     def testKeyWord176(self):
+          self.assertTrue(TestLexer.test('>','>,<EOF>',176))
+     def testKeyWord177(self):
+          self.assertTrue(TestLexer.test('>=','>=,<EOF>',177))
+     def testKeyWord178(self):
+          self.assertTrue(TestLexer.test('::','::,<EOF>',178))
+     def test79(self):
+       """test identifiers"""
+       self.assertTrue(TestLexer.test("abc", "abc,<EOF>", 179))
+     def test80(self):
+          input = """_abc75"""
+          expect = "_abc75,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,180))
+     def test81(self):
+          self.assertTrue(TestLexer.test('"1_234.567"','1_234.567,<EOF>', 181))
+     def test82(self):
+          self.assertTrue(TestLexer.test('"123" "str\\t\\n"','123,str\\t\\n,<EOF>', 182))
+     def test83(self):
+          self.assertTrue(TestLexer.test('"check \\f"','check \\f,<EOF>', 183))
+     def test84(self):
+          self.assertTrue(TestLexer.test('"He asked me: \\"Where is John?\\""','He asked me: \\"Where is John?\\",<EOF>', 184))
+     def test85(self):
+          self.assertTrue(TestLexer.test('"abg_','Unclosed String: abg_', 185))
+     def test86(self):
+          self.assertTrue(TestLexer.test('"test illegal \p"','Illegal Escape In String: test illegal \p', 186))
+     def test87(self):
+          self.assertTrue(TestLexer.test('"test\\s"','Illegal Escape In String: test\\s', 187))
+     def test88(self):
+          input = """//ab\n abc"""
+          expect = "abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,188))
+     def test89(self):
+          input = """/* akjkba
+                     */ test"""
+          expect = "test,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,189))
+     def test90(self):
+          input = """abc test /*kabh*/ //abc"""
+          expect = "abc,test,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,190))
+     def test191(self):
+          input = """12___"""
+          expect = "12,___,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,191))
+     def test192(self):
+          input = """12__4.1"""
+          expect = "124.1,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,192))
+     def test193(self):
+          input = """12__4.1,abc,string"""
+          expect = "124.1,,,abc,,,string,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,193))
+     def test194(self):
+          input = """12__4.1,abc,string//ancnassj\rabc"""
+          expect = "124.1,,,abc,,,string,abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,194))
+     def test195(self):
+          input = """123 abc"""
+          expect = "123,abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,195))
+     def test196(self):
+          input = """123 abc"""
+          expect = "123,abc,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,196))
+     def test97(self):
+          input = """\"abcd \\t \""""
+          expect = "abcd \\t ,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,197))
+     def test98(self):
+          input = """ \\t abc \""""
+          expect = "Error Token \\"
+          self.assertTrue(TestLexer.test(input,expect,198))
+     def test99(self):
+          input = """abc \""""
+          expect = "abc,Unclosed String: "
+          self.assertTrue(TestLexer.test(input,expect,199))
+     def test100(self):
+          input = """0.0"""
+          expect = "0.0,<EOF>"
+          self.assertTrue(TestLexer.test(input,expect,0))

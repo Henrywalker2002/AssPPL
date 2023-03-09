@@ -1,1 +1,1 @@
-break,<EOF>
+auto,<EOF>

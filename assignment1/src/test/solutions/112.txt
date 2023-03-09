@@ -1,1 +1,1 @@
-integer,<EOF>
+1.123,<EOF>
