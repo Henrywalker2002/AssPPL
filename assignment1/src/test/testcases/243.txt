@@ -1,0 +1,4 @@
+main : function void() {
+                    a = b +c * c > d + 3.6 + (2 == 3);
+                    foo(foo(3) + 2, arr);
+                }

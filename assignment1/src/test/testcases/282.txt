@@ -1,0 +1,3 @@
+subfunc : function void (inherit out a : string, b : array [] of string ) inherit 2 {
+                    return a;
+                }

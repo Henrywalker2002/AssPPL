@@ -1,0 +1,12 @@
+main : function void() {
+                    a : array[5] of integer = {2,3,4,5,6};
+                    print(sum(a));
+                }
+
+                sum : function integer (a: array [] of integer) {
+                    i,temp : auto = 0,0;
+                    while (i < size(a)) {
+                        if (a[i] > 0) temp = temp + a[i];
+                        else return -1;
+                    }
+                }

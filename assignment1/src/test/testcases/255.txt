@@ -1,0 +1,7 @@
+main : function void() {
+                    a = x();
+                }
+
+                x : function array[] of string() {
+                    return {"test1", "test2\t"};
+                }

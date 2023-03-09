@@ -1,0 +1,4 @@
+main : function void() {
+                    a : float;
+                    a = arr[5] + 2 + 3*6 < 2;
+                }

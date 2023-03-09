@@ -1,0 +1,6 @@
+x: function integer (out a: integer, inherit b : string) {
+                    while (true) {
+                        break;
+                    }
+                    a : string = 2
+                }

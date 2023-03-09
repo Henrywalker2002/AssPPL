@@ -1,0 +1,8 @@
+fact : function integer (n :integer) inherit temp {
+                    if (n == 1) return 1;
+                    else return n*fact(n-1);
+                }
+                main : function void() {
+                    print(fact(5));
+                    a,b : string = a,c,d;
+                }

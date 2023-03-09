@@ -1,0 +1,9 @@
+x: function integer (out a: integer, inherit b : string) {
+                        a : integer = b[2,3];
+                        if (a == 2) {
+                            return true;
+                        }
+                        else {
+                            return false
+                        }
+                    }
