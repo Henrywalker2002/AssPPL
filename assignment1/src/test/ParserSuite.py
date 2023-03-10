@@ -315,7 +315,7 @@ class ParserSuite(unittest.TestCase):
                     print(sum(a));
                 }
 
-                sum : function integer (a: array [] of integer) {
+                sum : function integer (a: array [2] of integer) {
                     temp : auto = 0;
                     for (i = 0, i < size(a), i + 1) {
                         temp = temp + a[i];
@@ -331,7 +331,7 @@ class ParserSuite(unittest.TestCase):
                     print(sum(a));
                 }
 
-                sum : function integer (a: array [] of integer) {
+                sum : function integer (a: array [2] of integer) {
                     i,temp : auto = 0,0;
                     while (i < size(a)) {
                         if (a[i] > 0) temp = temp + a[i];
@@ -430,16 +430,16 @@ class ParserSuite(unittest.TestCase):
     
     def testprogram48(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {}, {};
+                    a, b : array[2] of integer = {}, {};
                 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 248))
 
     def testprogram49(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {};
+                    a, b : array[2] of integer = {};
                 }"""
-        expect = "Error on line 2 col 50: ;"
+        expect = "Error on line 2 col 51: ;"
         self.assertTrue(TestParser.test(input, expect, 249))
 
     def testprogram50(self):
@@ -480,7 +480,7 @@ class ParserSuite(unittest.TestCase):
                     a = x();
                 }
 
-                x : function array[] of string() {
+                x : function array[2] of string() {
                     return {"test1", "test2\\t"};
                 }"""
         expect = "successful"
@@ -491,7 +491,7 @@ class ParserSuite(unittest.TestCase):
                     a = x();
                 }
 
-                x : function array[] of string() {
+                x : function array[2] of string() {
                     return {"test1", "test2\\t"}, 2;
                 }"""
         expect = "Error on line 6 col 47: ,"
@@ -634,7 +634,7 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram74(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
                 subfunc : function array() {
@@ -645,10 +645,10 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram75(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     a : void;
                 }"""
         expect = "Error on line 6 col 24: void"
@@ -656,10 +656,10 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram76(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     a : auto = {2,3} + 6;
                 }"""
         expect = "successful"
@@ -667,10 +667,10 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram77(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     return {a(3), 2 + 3};
                 }"""
         expect = "successful"
@@ -678,10 +678,10 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram78(self):
         input = """main : function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     return {a(3), 2 + 3, {2,3,4}};
                 }"""
         expect = "successful"
@@ -689,10 +689,10 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram79(self):
         input = """main : // function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     return {a(3), 2 + 3, {2,3,4}};
                 }"""
         expect = "Error on line 2 col 20: a"
@@ -700,27 +700,27 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram80(self):
         input = """main : /* function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }  */ 
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     return {a(3), 2 + 3, {2,3,4}};
                 }"""
         expect = "Error on line 5 col 16: subfunc"
         self.assertTrue(TestParser.test(input, expect, 280))
 
     def testprogram81(self):
-        input = """subfunc : function void (inherit out a : string, b : array [] of string ) inherit abc {
+        input = """subfunc : function void (inherit out a : string, b : array [2] of string ) inherit abc {
                     return a;
                 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 281))
 
     def testprogram82(self):
-        input = """subfunc : function void (inherit out a : string, b : array [] of string ) inherit 2 {
+        input = """subfunc : function void (inherit out a : string, b : array [2] of string ) inherit 2 {
                     return a;
                 }"""
-        expect = "Error on line 1 col 82: 2"
+        expect = "Error on line 1 col 83: 2"
         self.assertTrue(TestParser.test(input, expect, 282))
 
     def testprogram83(self):
@@ -819,14 +819,14 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram95(self):
         input = """main : function void (out a : string) {
-                    a : array[] of float; 
+                    a : array[2] of float; 
                 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 295))
 
     def testprogram96(self):
         input = """float : function void (out a : string) {
-                    a : array[] of float; 
+                    a : array[2] of float; 
                 }"""
         expect = "Error on line 1 col 0: float"
         self.assertTrue(TestParser.test(input, expect, 296))

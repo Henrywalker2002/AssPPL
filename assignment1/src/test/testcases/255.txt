@@ -2,6 +2,6 @@ main : function void() {
                     a = x();
                 }
 
-                x : function array[] of string() {
+                x : function array[2] of string() {
                     return {"test1", "test2\t"};
                 }

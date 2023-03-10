@@ -1,7 +1,7 @@
 main : // function void() {
-                    a, b : array[] of integer = {1,2}, foo(3); 
+                    a, b : array[2] of integer = {1,2}, foo(3); 
                 }   
 
-                subfunc : function array[] of boolean() {
+                subfunc : function array[2] of boolean() {
                     return {a(3), 2 + 3, {2,3,4}};
                 }

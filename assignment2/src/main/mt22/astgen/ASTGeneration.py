@@ -11,9 +11,11 @@ def getType(s : str):
         return StringType()
     elif (s == "string"):
         return StringType()
-    else: 
-        return
-
+    elif (s == "void"):
+        return VoidType()
+    elif s == "auto":
+        return AutoType()
+    return None
 
 class ASTGeneration(MT22Visitor):
 
@@ -48,21 +50,183 @@ class ASTGeneration(MT22Visitor):
     def visitDecl(self, ctx: MT22Parser.DeclContext):
         if ctx.getChildCount() == 2:
             return self.visit(ctx.vardecl())
-        return self.visit(ctx.functiondecl())
+        return [self.visit(ctx.functiondecl())]
+    
+    # parameterdecl : 'inherit'? 'out'? IDENTIFY ':' ('auto'|ATOMICTYPE | arrDecl);
+    def visitParameterdecl(self, ctx: MT22Parser.ParameterdeclContext):
+        inherit = False
+        out = False
+        if ctx.getChildCount() == 4:
+            if ctx.getChild(0) == "out":
+                out = True
+            else :
+                inherit = True
+        elif ctx.getChildCount() == 5:
+            out = inherit = True
+        iden = ctx.IDENTIFY().getText()
+        type_ = getType(ctx.getChild(-1).getText())
+        if type_ is None:
+            type_ = self.visit(ctx.arrDecl())
+        return ParamDecl(iden, type_, out, inherit)
+
+    # paralist : paraprime | ;
+    def visitParalist(self, ctx: MT22Parser.ParalistContext):
+        if ctx.getChildCount() == 0:
+            return []
+        return self.visit(ctx.paraprime())
+
+    # paraprime : parameterdecl COMMA paraprime | parameterdecl;
+    def visitParaprime(self, ctx: MT22Parser.ParaprimeContext):
+        if ctx.getChildCount() == 1:
+            return [self.visit(ctx.parameterdecl())]
+        return [self.visit(ctx.parameterdecl())] + self.visit(ctx.paraprime())
     
     # functiondecl: IDENTIFY ':' 'function' (TYPECONST | ATOMICTYPE | arrDecl | 'void') LB paralist RB ('inherit' IDENTIFY)? body ;
     def visitFunctiondecl(self, ctx: MT22Parser.FunctiondeclContext):
-        pass
+        funcname = ctx.getChild(0).getText()
+        type_ = getType(ctx.getChild(3).getText())
+        if type_ is None:
+            type_ = self.visit(ctx.arrDecl())
+        paralist = self.visit(ctx.paralist())
+        inheritname = None
+        if len(ctx.IDENTIFY()) == 2:
+            inheritname = ctx.IDENTIFY()[1]
+        body = self.visit(ctx.body())
+        return FuncDecl(funcname, type_, paralist, inheritname, body)
+    
+    # body : blockstmt;
+    def visitBody(self, ctx: MT22Parser.BodyContext):
+        return self.visit(ctx.blockstmt())
+    
+    # blockstmt: LP (stmtlist |) RP;
+    def visitBlockstmt(self, ctx: MT22Parser.BlockstmtContext):
+        if ctx.getChildCount() == 2:
+            return BlockStmt([])
+        return BlockStmt(self.visit(ctx.stmtlist()))
+    
+    # stmtlist: stmt stmtlist | stmt;
+    def visitStmtlist(self, ctx: MT22Parser.StmtlistContext):
+        if ctx.getChildCount() == 1:
+            return [self.visit(ctx.stmt())]
+        return [self.visit(ctx.stmt())] + self.visit(ctx.stmtlist())
+    
+    #stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt|vardecl) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
+    def visitStmt(self, ctx: MT22Parser.StmtContext):
+        if ctx.getChild(0).getText() == 'break':
+            return BreakStmt()
+        elif ctx.getChild(0).getText() == 'continue':
+            return ContinueStmt()
+        elif ctx.returnstmt():
+            return self.visit(ctx.returnstmt())
+        elif ctx.assignstmt():
+            return self.visit(ctx.assignstmt())
+        elif ctx.dowhilestmt():
+            return self.visit(ctx.dowhilestmt())
+        elif ctx.funccallstmt():
+            return self.visit(ctx.funccallstmt())
+        elif ctx.vardecl():
+            return self.visit(ctx.vardecl())
+        elif ctx.blockstmt():
+            return self.visit(ctx.blockstmt())
+        elif ctx.forstmt():
+            return self.visit(ctx.forstmt())
+        elif ctx.ifstmt():
+            return self.visit(ctx.ifstmt())
+        elif ctx.whilestmt():
+            return self.visit(ctx.whilestmt())
+    
+    # returnstmt: 'return' expr?;
+    def visitReturnstmt(self, ctx: MT22Parser.ReturnstmtContext):
+        expr = None
+        if ctx.getChildCount() == 2:
+            expr = self.visit(ctx.expr())
+        return ReturnStmt(expr)
+
+    # exprIndex : IDENTIFY '[' exprlist ']';
+    def visitExprIndex(self, ctx: MT22Parser.ExprIndexContext):
+        name = ctx.IDENTIFY().getText()
+        exprlst = ctx.visit(ctx.exprlist())
+        return ArrayCell(name, exprlst)
+
+    # assignstmt : (IDENTIFY|exprIndex) '=' expr;
+    def visitAssignstmt(self, ctx: MT22Parser.AssignstmtContext):
+        lhs = None
+        if ctx.IDENTIFY():
+            lhs = Id(ctx.IDENTIFY().getText())
+        else :
+            lhs = self.visit(ctx.exprIndex())
+        rhs = self.visit(ctx.expr())
+        return AssignStmt(lhs, rhs)
+    
+    # dowhilestmt: 'do' blockstmt 'while' expr;
+    def visitDowhilestmt(self, ctx: MT22Parser.DowhilestmtContext):
+        cond = self.visit(ctx.expr())
+        stmt = self.visit(ctx.blockstmt())
+        return DoWhileStmt(cond, stmt)
+    
+    # funccallstmt : IDENTIFY LB (exprlist) RB;
+    def visitFunccallstmt(self, ctx: MT22Parser.FunccallstmtContext):
+        name = ctx.IDENTIFY().getText()
+        exprlst = self.visit(ctx.exprlist())
+        return CallStmt(name, exprlst)
+    
+    # forstmt: 'for' LB (IDENTIFY|exprIndex) '=' INTLIT COMMA expr COMMA expr RB stmt;
+    def visitForstmt(self, ctx: MT22Parser.ForstmtContext):
+        stmt  = self.visit(ctx.stmt())
+        lhs = None
+        if ctx.IDENTIFY():
+            lhs = Id(ctx.IDENTIFY().getText())
+        else :
+            lhs = self.visit(ctx.exprIndex())
+        rhs = self.visit(ctx.expr())
+        init = AssignStmt(lhs, rhs)
+        exprlst = ctx.expr()
+        cond = self.visit(exprlst[0])
+        expr = self.visit(exprlst[1])
+        return ForStmt(init, cond, expr, stmt)
+
+    # ifstmt : 'if' LB expr RB stmt ('else' stmt)?;
+    def visitIfstmt(self, ctx: MT22Parser.IfstmtContext):
+        cond = self.visit(ctx.expr())
+        tstmt, fstmt = None, None
+        if ctx.getChildCount() == 5:
+            tstmt = self.visit(ctx.stmt())
+        else :
+            tstmt = self.visit(ctx.stmt()[0])
+            fstmt = self.visit(ctx.stmt()[1])
+        return IfStmt(cond, tstmt, fstmt)
+    
+    # whilestmt: 'while' LB expr RB stmt;
+    def visitWhilestmt(self, ctx: MT22Parser.WhilestmtContext):
+        cond = self.visit(ctx.expr())
+        stmt = self.visit(ctx.stmt())
+        return WhileStmt(cond, stmt)
+
+    # arrDecl : 'array' '[' intlst ']' 'of' ATOMICTYPE;
+    def visitArrDecl(self, ctx: MT22Parser.ArrDeclContext):
+        dimen = self.visit(ctx.intlst())
+        type_ = getType(ctx.getChild(-1))
+        return ArrayType(dimen, type_)
+    
+    # intlst : INTLIT COMMA intlst | INTLIT;
+    def visitIntlst(self, ctx: MT22Parser.IntlstContext):
+        if ctx.getChildCount == 0:
+            return [int(ctx.INTLIT().getText())]
+        return [int(ctx.INTLIT().getText())] + self.visit(ctx.intlst())
 
     # vardecl : idenlist ':' (TYPECONST|ATOMICTYPE|arrDecl) | helper;
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):
         if ctx.getChildCount() != 1:
             idenlst = self.visit(ctx.idenlist())
             type_ = getType(ctx.getChild(2).getText())
+            if type_ is None:
+                type_ = self.visit(ctx.arrDecl())
             return list(map(lambda x : VarDecl(x, type_), idenlst))
         temp = self.visit(ctx.helper())
         idenlst = temp[0]
         type_ = getType(temp[1][-1])
+        if type_ is None:
+            type_ = self.visit(ctx.arrDecl())
         exprlst = reversed(temp[2])
         return list(map(lambda x , y : VarDecl(x, type_, y), idenlst, exprlst))
     
@@ -146,6 +310,3 @@ class ASTGeneration(MT22Visitor):
         if ctx.getChildCount() == 1:
             return [ctx.IDENTIFY().getText()]
         return [(ctx.IDENTIFY().getText())] + self.visit(ctx.idenlist())
-    
-
-

@@ -32,7 +32,7 @@ vardecl : idenlist ':' ('auto'|ATOMICTYPE|arrDecl) | helper;
 helper : IDENTIFY COMMA helper COMMA expr | IDENTIFY COLON ('auto'|ATOMICTYPE|arrDecl) '=' expr; 
 
 // function declare
-parameterdecl : 'inherit'? 'out'? IDENTIFY ':' (TYPECONST|ATOMICTYPE | arrDecl);
+parameterdecl : 'inherit'? 'out'? IDENTIFY ':' ('auto'|ATOMICTYPE | arrDecl);
 paralist : paraprime | ;
 paraprime : parameterdecl COMMA paraprime | parameterdecl;
 
@@ -40,7 +40,7 @@ functiondecl: IDENTIFY ':' 'function' (TYPECONST | ATOMICTYPE | arrDecl | 'void'
 body : blockstmt;
 
 // array declare 
-arrDecl : 'array' '[' exprlist ']' 'of' ATOMICTYPE;
+arrDecl : 'array' '[' intlst ']' 'of' ATOMICTYPE;
 
 decl : (vardecl SEMI) | functiondecl ;
 
