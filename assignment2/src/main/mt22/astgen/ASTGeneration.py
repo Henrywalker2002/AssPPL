@@ -1,6 +1,7 @@
 from MT22Visitor import MT22Visitor
 from MT22Parser import MT22Parser
 from AST import *
+from functools import reduce
 
 def getType(s : str):
     if (s == "integer"):
@@ -16,6 +17,16 @@ def getType(s : str):
     elif s == "auto":
         return AutoType()
     return None
+
+def flatten(lst):
+    res = []
+    for x in lst: 
+        if isinstance(x, list):
+            for i in x: 
+                res.append(i)
+        else:
+            res.append(x)
+    return res
 
 class ASTGeneration(MT22Visitor):
 
@@ -33,7 +44,7 @@ class ASTGeneration(MT22Visitor):
             return self.visit(ctx.getChild(0))
         else :
             op = ctx.getChild(0)
-            val = ctx.getChild(1)
+            val = self.visit(ctx.getChild(1))
             return UnExpr(op, val)
 
     # program: decllist EOF;
@@ -102,13 +113,15 @@ class ASTGeneration(MT22Visitor):
     def visitBlockstmt(self, ctx: MT22Parser.BlockstmtContext):
         if ctx.getChildCount() == 2:
             return BlockStmt([])
-        return BlockStmt(self.visit(ctx.stmtlist()))
+        temp = self.visit(ctx.stmtlist())
+        return BlockStmt(temp)
     
     # stmtlist: stmt stmtlist | stmt;
     def visitStmtlist(self, ctx: MT22Parser.StmtlistContext):
+        temp = self.visit(ctx.stmt())
         if ctx.getChildCount() == 1:
-            return [self.visit(ctx.stmt())]
-        return [self.visit(ctx.stmt())] + self.visit(ctx.stmtlist())
+            return temp if isinstance(temp, list) else [temp]
+        return (temp if isinstance(temp, list) else [temp]) + self.visit(ctx.stmtlist())
     
     #stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt|vardecl) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
     def visitStmt(self, ctx: MT22Parser.StmtContext):
@@ -178,7 +191,7 @@ class ASTGeneration(MT22Visitor):
             lhs = Id(ctx.IDENTIFY().getText())
         else :
             lhs = self.visit(ctx.exprIndex())
-        rhs = self.visit(ctx.expr())
+        rhs = IntegerLit(int(ctx.INTLIT().getText()))
         init = AssignStmt(lhs, rhs)
         exprlst = ctx.expr()
         cond = self.visit(exprlst[0])
@@ -190,7 +203,7 @@ class ASTGeneration(MT22Visitor):
         cond = self.visit(ctx.expr())
         tstmt, fstmt = None, None
         if ctx.getChildCount() == 5:
-            tstmt = self.visit(ctx.stmt())
+            tstmt = self.visit(ctx.stmt()[0])
         else :
             tstmt = self.visit(ctx.stmt()[0])
             fstmt = self.visit(ctx.stmt()[1])
@@ -205,12 +218,12 @@ class ASTGeneration(MT22Visitor):
     # arrDecl : 'array' '[' intlst ']' 'of' ATOMICTYPE;
     def visitArrDecl(self, ctx: MT22Parser.ArrDeclContext):
         dimen = self.visit(ctx.intlst())
-        type_ = getType(ctx.getChild(-1))
+        type_ = getType(ctx.getChild(-1).getText())
         return ArrayType(dimen, type_)
     
     # intlst : INTLIT COMMA intlst | INTLIT;
     def visitIntlst(self, ctx: MT22Parser.IntlstContext):
-        if ctx.getChildCount == 0:
+        if ctx.getChildCount() == 1:
             return [int(ctx.INTLIT().getText())]
         return [int(ctx.INTLIT().getText())] + self.visit(ctx.intlst())
 
@@ -224,16 +237,17 @@ class ASTGeneration(MT22Visitor):
             return list(map(lambda x : VarDecl(x, type_), idenlst))
         temp = self.visit(ctx.helper())
         idenlst = temp[0]
-        type_ = getType(temp[1][-1])
-        if type_ is None:
-            type_ = self.visit(ctx.arrDecl())
+        type_ = temp[1][-1]
         exprlst = reversed(temp[2])
         return list(map(lambda x , y : VarDecl(x, type_, y), idenlst, exprlst))
     
     # helper : IDENTIFY COMMA helper COMMA expr | IDENTIFY COLON (TYPECONST|ATOMICTYPE|arrDecl) '=' expr; 
     def visitHelper(self, ctx: MT22Parser.HelperContext):
         if ctx.getChild(3).getText() == '=':
-            return [ctx.IDENTIFY().getText()],[ctx.getChild(2).getText()],[self.visit(ctx.expr())]
+            type_ = getType(ctx.getChild(2).getText())
+            if type_ is None:
+                type_ = self.visit(ctx.arrDecl())
+            return [ctx.IDENTIFY().getText()],[type_],[self.visit(ctx.expr())]
         temp = self.visit(ctx.helper())
         return [ctx.IDENTIFY().getText()] + temp[0],[None] + temp[1],[self.visit(ctx.expr())] + temp[2]
 
@@ -282,7 +296,7 @@ class ASTGeneration(MT22Visitor):
         elif ctx.FLOATLIT():
             return FloatLit(float(ctx.FLOATLIT().getText()))
         elif ctx.BOOLLIT():
-            return FloatLit(float(ctx.BOOLLIT().getText()))
+            return BooleanLit(bool(ctx.BOOLLIT().getText()))
         elif ctx.arraylit():
             return self.visit(ctx.arraylit())
         elif ctx.funccallstmt():
@@ -299,7 +313,7 @@ class ASTGeneration(MT22Visitor):
     def visitExprime(self, ctx: MT22Parser.ExprimeContext):
         if ctx.getChildCount() == 1:
             return [self.visit(ctx.expr())]
-        return [self.visit(ctx.expr())] + self.visit(ctx.visit(ctx.exprime()))
+        return [self.visit(ctx.expr())] + self.visit(ctx.exprime())
         
     # arraylit : LP exprlist RP;
     def visitArraylit(self, ctx: MT22Parser.ArraylitContext):
