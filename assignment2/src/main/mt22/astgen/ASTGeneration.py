@@ -10,8 +10,8 @@ def getType(s : str):
         return FloatType()
     elif (s == "string"):
         return StringType()
-    elif (s == "string"):
-        return StringType()
+    elif (s == "boolean"):
+        return BooleanType()
     elif (s == "void"):
         return VoidType()
     elif s == "auto":

@@ -1,0 +1,3 @@
+main : function void () {
+                    a = -------_2a + 4 / 5.0::c;
+                }

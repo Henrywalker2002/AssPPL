@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(subfunc, VoidType, [InheritOutParam(a, StringType), Param(b, ArrayType([2], StringType))], abc, BlockStmt([ReturnStmt(Id(a))]))
+])
