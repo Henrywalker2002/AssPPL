@@ -86,7 +86,7 @@ expr9 : IDENTIFY | STRINGLIT | INTLIT | FLOATLIT | BOOLLIT | arraylit | funccall
 // exprBool4: BOOLLIT | IDENTIFY | funccallstml;
 
 // index operator 
-exprIndex : IDENTIFY '[' exprlist ']';
+exprIndex : IDENTIFY '[' exprime ']';
 
 // statement
 // assign

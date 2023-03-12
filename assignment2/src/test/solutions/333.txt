@@ -1,0 +1,5 @@
+Program([
+	VarDecl(x, IntegerType, BinExpr(+, IntegerLit(3), IntegerLit(2)))
+	VarDecl(y, IntegerType, BinExpr(+, IntegerLit(4), CallStmt(double, IntegerLit(2), IntegerLit(3))))
+	VarDecl(z, IntegerType, BinExpr(*, IntegerLit(6), CallStmt(square, IntegerLit(1), IntegerLit(2))))
+])

@@ -138,15 +138,15 @@ def serializedATN():
         buf.write("\u0116\u010e\3\2\2\2\u0116\u010f\3\2\2\2\u0116\u0110\3")
         buf.write("\2\2\2\u0116\u0111\3\2\2\2\u0116\u0112\3\2\2\2\u0117\63")
         buf.write("\3\2\2\2\u0118\u0119\7\60\2\2\u0119\u011a\7\b\2\2\u011a")
-        buf.write("\u011b\5\36\20\2\u011b\u011c\7\t\2\2\u011c\65\3\2\2\2")
-        buf.write("\u011d\u0120\7\60\2\2\u011e\u0120\5\64\33\2\u011f\u011d")
-        buf.write("\3\2\2\2\u011f\u011e\3\2\2\2\u0120\u0121\3\2\2\2\u0121")
-        buf.write("\u0122\7 \2\2\u0122\u0123\5\"\22\2\u0123\67\3\2\2\2\u0124")
-        buf.write("\u0125\7\f\2\2\u0125\u0126\7\27\2\2\u0126\u0127\5\"\22")
-        buf.write("\2\u0127\u0128\7\30\2\2\u0128\u012b\5D#\2\u0129\u012a")
-        buf.write("\7\r\2\2\u012a\u012c\5D#\2\u012b\u0129\3\2\2\2\u012b\u012c")
-        buf.write("\3\2\2\2\u012c9\3\2\2\2\u012d\u012e\7\16\2\2\u012e\u012f")
-        buf.write("\7\27\2\2\u012f\u0130\5\"\22\2\u0130\u0131\7\30\2\2\u0131")
+        buf.write("\u011b\5 \21\2\u011b\u011c\7\t\2\2\u011c\65\3\2\2\2\u011d")
+        buf.write("\u0120\7\60\2\2\u011e\u0120\5\64\33\2\u011f\u011d\3\2")
+        buf.write("\2\2\u011f\u011e\3\2\2\2\u0120\u0121\3\2\2\2\u0121\u0122")
+        buf.write("\7 \2\2\u0122\u0123\5\"\22\2\u0123\67\3\2\2\2\u0124\u0125")
+        buf.write("\7\f\2\2\u0125\u0126\7\27\2\2\u0126\u0127\5\"\22\2\u0127")
+        buf.write("\u0128\7\30\2\2\u0128\u012b\5D#\2\u0129\u012a\7\r\2\2")
+        buf.write("\u012a\u012c\5D#\2\u012b\u0129\3\2\2\2\u012b\u012c\3\2")
+        buf.write("\2\2\u012c9\3\2\2\2\u012d\u012e\7\16\2\2\u012e\u012f\7")
+        buf.write("\27\2\2\u012f\u0130\5\"\22\2\u0130\u0131\7\30\2\2\u0131")
         buf.write("\u0132\5D#\2\u0132;\3\2\2\2\u0133\u0134\7\17\2\2\u0134")
         buf.write("\u0137\7\27\2\2\u0135\u0138\7\60\2\2\u0136\u0138\5\64")
         buf.write("\33\2\u0137\u0135\3\2\2\2\u0137\u0136\3\2\2\2\u0138\u0139")
@@ -1984,8 +1984,8 @@ class MT22Parser ( Parser ):
         def IDENTIFY(self):
             return self.getToken(MT22Parser.IDENTIFY, 0)
 
-        def exprlist(self):
-            return self.getTypedRuleContext(MT22Parser.ExprlistContext,0)
+        def exprime(self):
+            return self.getTypedRuleContext(MT22Parser.ExprimeContext,0)
 
 
         def getRuleIndex(self):
@@ -2005,7 +2005,7 @@ class MT22Parser ( Parser ):
             self.state = 279
             self.match(MT22Parser.T__5)
             self.state = 280
-            self.exprlist()
+            self.exprime()
             self.state = 281
             self.match(MT22Parser.T__6)
         except RecognitionException as re:

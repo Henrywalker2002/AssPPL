@@ -155,10 +155,10 @@ class ASTGeneration(MT22Visitor):
             expr = self.visit(ctx.expr())
         return ReturnStmt(expr)
 
-    # exprIndex : IDENTIFY '[' exprlist ']';
+    # exprIndex : IDENTIFY '[' exprime ']';
     def visitExprIndex(self, ctx: MT22Parser.ExprIndexContext):
         name = ctx.IDENTIFY().getText()
-        exprlst = ctx.visit(ctx.exprlist())
+        exprlst = self.visit(ctx.exprime())
         return ArrayCell(name, exprlst)
 
     # assignstmt : (IDENTIFY|exprIndex) '=' expr;
@@ -317,7 +317,8 @@ class ASTGeneration(MT22Visitor):
         
     # arraylit : LP exprlist RP;
     def visitArraylit(self, ctx: MT22Parser.ArraylitContext):
-        return ArrayLit(self.visit(ctx.exprlist()))
+        temp = self.visit(ctx.exprlist())
+        return ArrayLit(temp)
 
     # idenlist : IDENTIFY COMMA idenlist | IDENTIFY;
     def visitIdenlist(self, ctx: MT22Parser.IdenlistContext):

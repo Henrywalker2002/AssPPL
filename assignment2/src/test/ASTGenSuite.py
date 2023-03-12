@@ -167,77 +167,218 @@ class ASTGenSuite(unittest.TestCase):
 # ])"""
 #         self.assertTrue(TestAST.test(input, expect, 314))
 
-    def test11(self):
-        input = """main : function void() {
-                    if (!!!!a) {
-                        a = 2;
-                    }
-                    foo(foo(a + 2));
-                }"""
+#     def test11(self):
+#         input = """main : function void() {
+#                     if (!!!!a) {
+#                         a = 2;
+#                     }
+#                     foo(foo(a + 2));
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(UnExpr(!, UnExpr(!, UnExpr(!, UnExpr(!, Id(a))))), BlockStmt([AssignStmt(Id(a), IntegerLit(2))])), CallStmt(foo, CallStmt(foo, BinExpr(+, Id(a), IntegerLit(2))))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 315))
+
+#     def test12(self):
+#         input = """main : function void() {
+#                         a : array [5] of integer = {2,3,4,5,6};
+#                         sum : integer = 0;
+#                         for (i = 0, i < size(5), i + 1) {
+#                             sum = sum + a[i];
+#                         } 
+#                         print(sum);
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), VarDecl(sum, IntegerType, IntegerLit(0)), ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(<, Id(i), CallStmt(size, IntegerLit(5))), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([AssignStmt(Id(sum), BinExpr(+, Id(sum), ArrayCell(a, [Id(i)])))])), CallStmt(print, Id(sum))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 316))
+
+#     def test13(self):
+#         input = """main : function void() {
+#                     a : array[5] of integer = {2,3,4,5,6};
+#                     print(sum(a));
+#                 }
+
+#                 sum : function integer (a: array [2] of integer) {
+#                     temp : auto = 0;
+#                     for (i = 0, i < size(a), i + 1) {
+#                         temp = temp + a[i];
+#                     }
+#                     return temp;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
+# 	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(temp, AutoType, IntegerLit(0)), ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(<, Id(i), CallStmt(size, Id(a))), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)])))])), ReturnStmt(Id(temp))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 317))
+
+#     def test14(self):
+#         input = """main : function void() {
+#                     a : array[5] of integer = {2,3,4,5,6};
+#                     print(sum(a));
+#                 }
+
+#                 sum : function integer (a: array [2] of integer) {
+#                     i,temp : auto = 0,0;
+#                     while (i < size(a)) {
+#                         if (a[i] > 0) temp = temp + a[i];
+#                         else return -1;
+#                     }
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
+# 	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(i, AutoType, IntegerLit(0)), VarDecl(temp, AutoType, IntegerLit(0)), WhileStmt(BinExpr(<, Id(i), CallStmt(size, Id(a))), BlockStmt([IfStmt(BinExpr(>, ArrayCell(a, [Id(i)]), IntegerLit(0)), AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)]))), ReturnStmt(UnExpr(-, IntegerLit(1))))]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 318))
+
+#     def test15(self):
+#         input = """main : function void() {
+#                     a : float;
+#                     a = arr[5] + 2 + 3*6 < 2;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, FloatType), AssignStmt(Id(a), BinExpr(<, BinExpr(+, BinExpr(+, ArrayCell(arr, [IntegerLit(5)]), IntegerLit(2)), BinExpr(*, IntegerLit(3), IntegerLit(6))), IntegerLit(2)))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 319))
+
+#     def test16(self):
+#         input = """main : function void() {
+#                     foo(foo(foo(5.23e10)));
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(foo, CallStmt(foo, CallStmt(foo, FloatLit(52300000000.0))))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 320))
+
+#     def test17(self):
+#         input = """main : function void() {
+#                     a,c : auto = b,foo(foo(foo(5.23e10)));
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, AutoType, Id(b)), VarDecl(c, AutoType, CallStmt(foo, CallStmt(foo, CallStmt(foo, FloatLit(52300000000.0)))))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 321))
+
+#     def test18(self):
+#         input = """main : function void() {
+#                     a = b +c * c > d + 3.6 + (2 == 3);
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(Id(a), BinExpr(>, BinExpr(+, Id(b), BinExpr(*, Id(c), Id(c))), BinExpr(+, BinExpr(+, Id(d), FloatLit(3.6)), BinExpr(==, IntegerLit(2), IntegerLit(3)))))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 322))
+
+#     def test19(self):
+#         input = """main : function void() {
+#                     a [2] = x + 2;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(ArrayCell(a, [IntegerLit(2)]), BinExpr(+, Id(x), IntegerLit(2)))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 323))
+
+#     def test20(self):
+#         input = """main : function void() {
+#                     sum = 0;
+#                     for (i = 0, i < 5, i + 1) {
+#                         for (j = 0, j < 10, j+ 1) 
+#                             sum = sum + a[i,j];
+#                     }
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(Id(sum), IntegerLit(0)), ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(<, Id(i), IntegerLit(5)), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([ForStmt(AssignStmt(Id(j), IntegerLit(0)), BinExpr(<, Id(j), IntegerLit(10)), BinExpr(+, Id(j), IntegerLit(1)), AssignStmt(Id(sum), BinExpr(+, Id(sum), ArrayCell(a, [Id(i), Id(j)]))))]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 324))
+
+#     def test21(self):
+#         input = """main : function void() {
+#                     a, b : array[5] of integer ;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType)), VarDecl(b, ArrayType([5], IntegerType))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 325))
+
+#     def test22(self):
+#         input = """main : function void() {
+#                     a, b : array[2] of integer = {}, {};
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([2], IntegerType), ArrayLit([])), VarDecl(b, ArrayType([2], IntegerType), ArrayLit([]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 326))
+
+#     def test23(self):
+#         input = """main : function void() {
+#                     for (a[i] = 2, i < 2, i * 2) a[i,2] = 3;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([ForStmt(AssignStmt(ArrayCell(a, [Id(i)]), IntegerLit(2)), BinExpr(<, Id(i), IntegerLit(2)), BinExpr(*, Id(i), IntegerLit(2)), AssignStmt(ArrayCell(a, [Id(i), IntegerLit(2)]), IntegerLit(3)))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 327))
+
+#     def test24(self):
+#         input = """main : function void() {
+#                     a = x();
+#                 }
+
+#                 x : function array[2] of string() {
+#                     return {"test1", "test2\\t"};
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(Id(a), CallStmt(x, ))]))
+# 	FuncDecl(x, ArrayType([2], StringType), [], None, BlockStmt([ReturnStmt(ArrayLit([test1, test2\\t]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 328))
+
+#     def test25(self):
+#         input = """main : function void() {
+#                         do { a = 2; } 
+#                         while (true);
+#                     }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([DoWhileStmt(BooleanLit(True), BlockStmt([AssignStmt(Id(a), IntegerLit(2))]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 329))
+
+#     def test26(self):
+#         input = """main : function void() {
+#                 foo (a[foo(3)], h+5);
+#             }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(foo, ArrayCell(a, [CallStmt(foo, IntegerLit(3))]), BinExpr(+, Id(h), IntegerLit(5)))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 330))
+
+#     def test27(self):
+#         input = """main : function void () {
+#                     for (i = 0, i + 2 , i < 2) {
+#                         continue;
+#                     }
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(+, Id(i), IntegerLit(2)), BinExpr(<, Id(i), IntegerLit(2)), BlockStmt([ContinueStmt()]))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 331))
+
+#     def test28(self):
+#         input = """main : function void () {
+#                     r, s: integer;
+#                     r = 2.0;
+#                     a, b: array [5] of integer;
+#                     s = r * r * myPI;
+#                     a[0] = s;
+#                 }"""
+#         expect = """Program([
+# 	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(r, IntegerType), VarDecl(s, IntegerType), AssignStmt(Id(r), FloatLit(2.0)), VarDecl(a, ArrayType([5], IntegerType)), VarDecl(b, ArrayType([5], IntegerType)), AssignStmt(Id(s), BinExpr(*, BinExpr(*, Id(r), Id(r)), Id(myPI))), AssignStmt(ArrayCell(a, [IntegerLit(0)]), Id(s))]))
+# ])"""
+#         self.assertTrue(TestAST.test(input, expect, 332))
+
+    def test29(self):
+        input = """x,y,z: integer = 3+2, 4+double(2,3), 6*square(1,2);"""
         expect = """Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(UnExpr(!, UnExpr(!, UnExpr(!, UnExpr(!, Id(a))))), BlockStmt([AssignStmt(Id(a), IntegerLit(2))])), CallStmt(foo, CallStmt(foo, BinExpr(+, Id(a), IntegerLit(2))))]))
+	VarDecl(x, IntegerType, BinExpr(+, IntegerLit(3), IntegerLit(2)))
+	VarDecl(y, IntegerType, BinExpr(+, IntegerLit(4), CallStmt(double, IntegerLit(2), IntegerLit(3))))
+	VarDecl(z, IntegerType, BinExpr(*, IntegerLit(6), CallStmt(square, IntegerLit(1), IntegerLit(2))))
 ])"""
-        self.assertTrue(TestAST.test(input, expect, 315))
-
-    def test12(self):
-        input = """main : function void() {
-                        a : array [5] of integer = {2,3,4,5,6};
-                        sum : integer = 0;
-                        for (i = 0, i < size(5), i + 1) {
-                            sum = sum + a[i];
-                        } 
-                        print(sum);
-                }"""
-        expect = """Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), VarDecl(sum, IntegerType, IntegerLit(0)), ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(<, Id(i), CallStmt(size, IntegerLit(5))), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([AssignStmt(Id(sum), BinExpr(+, Id(sum), ArrayCell(a, [Id(i)])))])), CallStmt(print, Id(sum))]))
-])"""
-        self.assertTrue(TestAST.test(input, expect, 316))
-
-    def test13(self):
-        input = """main : function void() {
-                    a : array[5] of integer = {2,3,4,5,6};
-                    print(sum(a));
-                }
-
-                sum : function integer (a: array [2] of integer) {
-                    temp : auto = 0;
-                    for (i = 0, i < size(a), i + 1) {
-                        temp = temp + a[i];
-                    }
-                    return temp;
-                }"""
-        expect = """Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
-	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(temp, AutoType, IntegerLit(0)), ForStmt(AssignStmt(Id(i), IntegerLit(0)), BinExpr(<, Id(i), CallStmt(size, Id(a))), BinExpr(+, Id(i), IntegerLit(1)), BlockStmt([AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)])))])), ReturnStmt(Id(temp))]))
-])"""
-        self.assertTrue(TestAST.test(input, expect, 317))
-
-    def test14(self):
-        input = """main : function void() {
-                    a : array[5] of integer = {2,3,4,5,6};
-                    print(sum(a));
-                }
-
-                sum : function integer (a: array [2] of integer) {
-                    i,temp : auto = 0,0;
-                    while (i < size(a)) {
-                        if (a[i] > 0) temp = temp + a[i];
-                        else return -1;
-                    }
-                }"""
-        expect = """Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
-	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(i, AutoType, IntegerLit(0)), VarDecl(temp, AutoType, IntegerLit(0)), WhileStmt(BinExpr(<, Id(i), CallStmt(size, Id(a))), BlockStmt([IfStmt(BinExpr(>, ArrayCell(a, [Id(i)]), IntegerLit(0)), AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)]))), ReturnStmt(UnExpr(-, IntegerLit(1))))]))]))
-])"""
-        self.assertTrue(TestAST.test(input, expect, 318))
-
-    def test15(self):
-        input = """main : function void() {
-                    a : float;
-                    a = arr[5] + 2 + 3*6 < 2;
-                }"""
-        expect = """Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
-	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(i, AutoType, IntegerLit(0)), VarDecl(temp, AutoType, IntegerLit(0)), WhileStmt(BinExpr(<, Id(i), CallStmt(size, Id(a))), BlockStmt([IfStmt(BinExpr(>, ArrayCell(a, [Id(i)]), IntegerLit(0)), AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)]))), ReturnStmt(UnExpr(-, IntegerLit(1))))]))]))
-])"""
-        self.assertTrue(TestAST.test(input, expect, 319))
+        self.assertTrue(TestAST.test(input, expect, 333))

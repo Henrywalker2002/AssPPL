@@ -405,7 +405,7 @@ class ParserSuite(unittest.TestCase):
 
     def testprogram45(self):
         input = """main : function void() {
-                    a [] = x + 2;
+                    a [2] = x + 2;
                 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 245))

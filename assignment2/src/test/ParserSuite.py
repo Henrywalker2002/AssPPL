@@ -44,3 +44,10 @@ class ParserSuite(unittest.TestCase):
         }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 205))
+
+    def testprogram45(self):
+        input = """main : function void() {
+                    a [2] = x + 2;
+                }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 245))

@@ -1,0 +1,1 @@
+x,y,z: integer = 3+2, 4+double(2,3), 6*square(1,2);
