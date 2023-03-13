@@ -1,0 +1,4 @@
+main: function void () {
+    do {a = a + 3;}
+    while (a == 2);
+}

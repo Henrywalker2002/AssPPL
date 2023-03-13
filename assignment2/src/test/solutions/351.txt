@@ -1,0 +1,9 @@
+Program([
+	VarDecl(x, IntegerType, IntegerLit(3))
+	VarDecl(y, IntegerType, IntegerLit(4))
+	VarDecl(z, IntegerType, IntegerLit(6))
+	FuncDecl(fact, IntegerType, [Param(n, IntegerType)], None, BlockStmt([IfStmt(BinExpr(||, BinExpr(||, BinExpr(==, Id(n), IntegerLit(0)), BinExpr(==, Id(n), IntegerLit(1))), BinExpr(==, Id(n), IntegerLit(2))), ReturnStmt(IntegerLit(1))), VarDecl(result, IntegerType, IntegerLit(1)), VarDecl(a, IntegerType, IntegerLit(1)), VarDecl(b, IntegerType, IntegerLit(1)), WhileStmt(BinExpr(>, Id(n), IntegerLit(2)), BlockStmt([AssignStmt(Id(result), BinExpr(+, Id(a), Id(b))), AssignStmt(Id(a), Id(b)), AssignStmt(Id(b), Id(result)), AssignStmt(Id(n), BinExpr(-, Id(n), IntegerLit(1)))])), ReturnStmt(Id(result))]))
+	FuncDecl(fact, IntegerType, [Param(n, IntegerType)], None, BlockStmt([IfStmt(BinExpr(==, Id(n), IntegerLit(0)), ReturnStmt(IntegerLit(1)), ReturnStmt(BinExpr(*, Id(n), CallStmt(fact, BinExpr(-, Id(n), IntegerLit(1))))))]))
+	FuncDecl(inc, VoidType, [InheritParam(n, IntegerType), Param(delta, IntegerType)], None, BlockStmt([AssignStmt(Id(n), BinExpr(+, Id(n), Id(delta)))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(delta, IntegerType, CallStmt(fact, IntegerLit(3))), CallStmt(inc, Id(x), Id(delta)), CallStmt(printInteger, Id(x))]))
+])
