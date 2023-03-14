@@ -134,9 +134,9 @@ class FloatLit(Expr):
 class StringLit(Expr):
     def __init__(self, val: str):
         self.val = val
-    
+
     def __str__(self):
-        return self.val
+        return "StringLit({})".format(self.val)
 
 
 class BooleanLit(Expr):

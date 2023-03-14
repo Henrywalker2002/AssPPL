@@ -327,7 +327,7 @@ class ASTGenSuite(unittest.TestCase):
                 }"""
         expect = """Program([
 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(Id(a), FuncCall(x, []))]))
-	FuncDecl(x, ArrayType([2], StringType), [], None, BlockStmt([ReturnStmt(ArrayLit([test1, test2\\t]))]))
+	FuncDecl(x, ArrayType([2], StringType), [], None, BlockStmt([ReturnStmt(ArrayLit([StringLit(test1), StringLit(test2\\t)]))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 328))
 
@@ -862,7 +862,7 @@ class ASTGenSuite(unittest.TestCase):
             a,b,c,d : auto = {a,b, foo(a)}, 2,3, "abc\\n";
 }"""
         expect = """Program([
-	FuncDecl(main, StringType, [], None, BlockStmt([VarDecl(a, AutoType, ArrayLit([Id(a), Id(b), FuncCall(foo, [Id(a)])])), VarDecl(b, AutoType, IntegerLit(2)), VarDecl(c, AutoType, IntegerLit(3)), VarDecl(d, AutoType, abc\\n)]))
+	FuncDecl(main, StringType, [], None, BlockStmt([VarDecl(a, AutoType, ArrayLit([Id(a), Id(b), FuncCall(foo, [Id(a)])])), VarDecl(b, AutoType, IntegerLit(2)), VarDecl(c, AutoType, IntegerLit(3)), VarDecl(d, AutoType, StringLit(abc\\n))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 372))
 

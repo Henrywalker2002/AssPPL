@@ -1,4 +1,4 @@
 Program([
 	FuncDecl(main, VoidType, [], None, BlockStmt([AssignStmt(Id(a), FuncCall(x, []))]))
-	FuncDecl(x, ArrayType([2], StringType), [], None, BlockStmt([ReturnStmt(ArrayLit([test1, test2\t]))]))
+	FuncDecl(x, ArrayType([2], StringType), [], None, BlockStmt([ReturnStmt(ArrayLit([StringLit(test1), StringLit(test2\t)]))]))
 ])
