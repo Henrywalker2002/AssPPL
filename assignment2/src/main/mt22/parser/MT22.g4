@@ -56,7 +56,9 @@ expr5 : expr5 (MULOP|DIVOP|REMAINOP) expr6 | expr6;
 expr6 : NEG expr6 | expr7 ;
 expr7 : SUBOP expr7 | expr8 ;
 expr8 : IDENTIFY '[' exprlist ']' | expr9;
-expr9 : IDENTIFY | STRINGLIT | INTLIT | FLOATLIT | BOOLLIT | arraylit | funccallstmt| (LB expr RB);
+expr9 : IDENTIFY | STRINGLIT | INTLIT | FLOATLIT | BOOLLIT | arraylit | callFunc| (LB expr RB);
+
+callFunc : IDENTIFY LB (exprlist) RB;
 // expr : exprInt | exprFloat | exprBool | exprStr | exprIndex;
 
 // // FLOAT OPERATOR

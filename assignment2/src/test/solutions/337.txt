@@ -1,4 +1,4 @@
 Program([
 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
-	FuncDecl(subfunc, BooleanType, [], None, BlockStmt([ReturnStmt(BinExpr(==, CallStmt(foo, IntegerLit(3)), IntegerLit(2)))]))
+	FuncDecl(subfunc, BooleanType, [], None, BlockStmt([ReturnStmt(BinExpr(==, FuncCall(foo, [IntegerLit(3)]), IntegerLit(2)))]))
 ])

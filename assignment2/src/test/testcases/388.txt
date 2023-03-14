@@ -1,0 +1,5 @@
+
+fact: function  array [1,2, 1, 2] of integer (out  n: integer) inherit ant{
+                if (n == 0) return 1;
+                else return n * fact(n - 1);
+                }

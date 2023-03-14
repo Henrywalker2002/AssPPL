@@ -1,4 +1,4 @@
 Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, CallStmt(sum, Id(a)))]))
-	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(i, AutoType, IntegerLit(0)), VarDecl(temp, AutoType, IntegerLit(0)), WhileStmt(BinExpr(<, Id(i), CallStmt(size, Id(a))), BlockStmt([IfStmt(BinExpr(>, ArrayCell(a, [Id(i)]), IntegerLit(0)), AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)]))), ReturnStmt(UnExpr(-, IntegerLit(1))))]))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([5], IntegerType), ArrayLit([IntegerLit(2), IntegerLit(3), IntegerLit(4), IntegerLit(5), IntegerLit(6)])), CallStmt(print, FuncCall(sum, [Id(a)]))]))
+	FuncDecl(sum, IntegerType, [Param(a, ArrayType([2], IntegerType))], None, BlockStmt([VarDecl(i, AutoType, IntegerLit(0)), VarDecl(temp, AutoType, IntegerLit(0)), WhileStmt(BinExpr(<, Id(i), FuncCall(size, [Id(a)])), BlockStmt([IfStmt(BinExpr(>, ArrayCell(a, [Id(i)]), IntegerLit(0)), AssignStmt(Id(temp), BinExpr(+, Id(temp), ArrayCell(a, [Id(i)]))), ReturnStmt(UnExpr(-, IntegerLit(1))))]))]))
 ])

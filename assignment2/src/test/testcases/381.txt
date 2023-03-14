@@ -1,0 +1,6 @@
+main : function string(inherit out a : auto) {
+            do {
+                    
+            }
+            while (foo(foo(3)) + foo(5));
+        }

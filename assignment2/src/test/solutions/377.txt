@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(main, StringType, [InheritOutParam(a, AutoType)], None, BlockStmt([AssignStmt(Id(a), BinExpr(+, FuncCall(foo, []), Id(bc)))]))
+])

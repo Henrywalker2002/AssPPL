@@ -1,4 +1,4 @@
 Program([
-	FuncDecl(main, StringType, [], None, BlockStmt([VarDecl(a, IntegerType, ArrayLit([Id(a), Id(b), CallStmt(foo, Id(a))]))]))
+	FuncDecl(main, StringType, [], None, BlockStmt([VarDecl(a, IntegerType, ArrayLit([Id(a), Id(b), FuncCall(foo, [Id(a)])]))]))
 	VarDecl(b, StringType, ArrayLit([Id(a), Id(c), Id(d)]))
 ])

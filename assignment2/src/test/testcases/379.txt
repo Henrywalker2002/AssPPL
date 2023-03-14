@@ -1,0 +1,5 @@
+main : function string(inherit out a : auto) {
+            if (foo(2)) {
+                return 1;
+            }
+        }

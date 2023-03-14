@@ -1,4 +1,4 @@
 Program([
-	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([2], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2)])), VarDecl(b, ArrayType([2], IntegerType), CallStmt(foo, IntegerLit(3)))]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([VarDecl(a, ArrayType([2], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2)])), VarDecl(b, ArrayType([2], IntegerType), FuncCall(foo, [IntegerLit(3)]))]))
 	FuncDecl(subfunc, ArrayType([2], BooleanType), [], None, BlockStmt([VarDecl(a, AutoType, BinExpr(+, ArrayLit([IntegerLit(2), IntegerLit(3)]), IntegerLit(6)))]))
 ])

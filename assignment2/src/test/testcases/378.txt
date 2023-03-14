@@ -1,0 +1,5 @@
+main : function string(inherit out a : auto) {
+            while(full()) {
+                continue;
+            }
+        }

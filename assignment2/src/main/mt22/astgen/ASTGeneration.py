@@ -285,7 +285,7 @@ class ASTGeneration(MT22Visitor):
             return self.visit(ctx.getChild(0))
         return ArrayCell(ctx.IDENTIFY().getText(), self.visit(ctx.exprlist()))
 
-    # expr9 : IDENTIFY | STRINGLIT | INTLIT | FLOATLIT | BOOLLIT | arraylit | funccallstmt| (LB expr RB);
+    # expr9 : IDENTIFY | STRINGLIT | INTLIT | FLOATLIT | BOOLLIT | arraylit | callFunc| (LB expr RB);
     def visitExpr9(self, ctx: MT22Parser.Expr9Context):
         if ctx.IDENTIFY():
             return Id(ctx.IDENTIFY().getText())
@@ -299,9 +299,15 @@ class ASTGeneration(MT22Visitor):
             return BooleanLit(bool(ctx.BOOLLIT().getText()))
         elif ctx.arraylit():
             return self.visit(ctx.arraylit())
-        elif ctx.funccallstmt():
-            return self.visit(ctx.funccallstmt())
+        elif ctx.callFunc():
+            return self.visit(ctx.callFunc())
         return self.visit(ctx.expr())
+    
+    # callFunc : IDENTIFY LB (exprlist) RB;
+    def visitCallFunc(self, ctx: MT22Parser.CallFuncContext):
+        name = ctx.IDENTIFY().getText()
+        exprlst = self.visit(ctx.exprlist())
+        return FuncCall(name, exprlst)
 
     # exprlist : exprime | ;
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):

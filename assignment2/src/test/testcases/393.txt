@@ -1,0 +1,4 @@
+
+fact: function  array [5] of string (inherit out n: integer, out a : array[5] of string) inherit ant{
+                while (1) return 2;
+        }

@@ -1,0 +1,5 @@
+
+fact: function  array [5] of string (inherit out n: integer) inherit ant{
+                if (n == 0) return 1 + abc();
+                else return n * fact(n - 1) / abc;
+                }

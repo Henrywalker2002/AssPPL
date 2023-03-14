@@ -1,0 +1,4 @@
+Program([
+	FuncDecl(main, StringType, [InheritOutParam(a, AutoType)], None, BlockStmt([DoWhileStmt(BinExpr(+, FuncCall(foo, [FuncCall(foo, [IntegerLit(3)])]), FuncCall(foo, [IntegerLit(5)])), BlockStmt([VarDecl(c, AutoType, BinExpr(+, FuncCall(abc, []), BinExpr(/, Id(bc), Id(cl))))]))]))
+	VarDecl(b, StringType, FuncCall(foo, []))
+])

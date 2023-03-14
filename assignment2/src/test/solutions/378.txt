@@ -1,0 +1,3 @@
+Program([
+	FuncDecl(main, StringType, [InheritOutParam(a, AutoType)], None, BlockStmt([WhileStmt(FuncCall(full, []), BlockStmt([ContinueStmt()]))]))
+])
