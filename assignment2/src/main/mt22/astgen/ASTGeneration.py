@@ -68,7 +68,7 @@ class ASTGeneration(MT22Visitor):
         inherit = False
         out = False
         if ctx.getChildCount() == 4:
-            if ctx.getChild(0) == "out":
+            if ctx.getChild(0).getText() == "out":
                 out = True
             else :
                 inherit = True
@@ -296,7 +296,8 @@ class ASTGeneration(MT22Visitor):
         elif ctx.FLOATLIT():
             return FloatLit(float(ctx.FLOATLIT().getText()))
         elif ctx.BOOLLIT():
-            return BooleanLit(bool(ctx.BOOLLIT().getText()))
+            temp = ctx.BOOLLIT().getText()
+            return BooleanLit(True) if temp == "true" else BooleanLit(False)
         elif ctx.arraylit():
             return self.visit(ctx.arraylit())
         elif ctx.callFunc():

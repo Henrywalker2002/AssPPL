@@ -1,3 +1,3 @@
 Program([
-	FuncDecl(fact, ArrayType([5], StringType), [InheritOutParam(n, IntegerType), InheritParam(a, ArrayType([5], StringType))], ant, BlockStmt([IfStmt(BinExpr(==, Id(n), IntegerLit(0)), ReturnStmt(BinExpr(+, IntegerLit(1), FuncCall(abc, []))), ReturnStmt(BinExpr(/, BinExpr(*, Id(n), FuncCall(fact, [BinExpr(-, Id(n), IntegerLit(1))])), Id(abc))))]))
+	FuncDecl(fact, ArrayType([5], StringType), [InheritOutParam(n, IntegerType), OutParam(a, ArrayType([5], StringType))], ant, BlockStmt([IfStmt(BinExpr(==, Id(n), IntegerLit(0)), ReturnStmt(BinExpr(+, IntegerLit(1), FuncCall(abc, []))), ReturnStmt(BinExpr(/, BinExpr(*, Id(n), FuncCall(fact, [BinExpr(-, Id(n), IntegerLit(1))])), Id(abc))))]))
 ])
