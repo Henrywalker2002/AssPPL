@@ -1,0 +1,6 @@
+main : function void() {
+                    a : array [5] of float;
+                    for (i = 0, i < 5, i + 1) {
+                        a[i] = Float(i);
+                    }
+                }

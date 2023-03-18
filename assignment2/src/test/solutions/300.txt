@@ -1,3 +1,1 @@
-Program([
-	VarDecl(x, IntegerType)
-])
+abc\t;

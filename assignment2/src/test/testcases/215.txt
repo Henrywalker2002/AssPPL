@@ -1,0 +1,4 @@
+main : function void() {
+                    print(fact(5));
+                    1 = 2;
+                }

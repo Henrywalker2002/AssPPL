@@ -292,7 +292,10 @@ class ASTGeneration(MT22Visitor):
         elif ctx.STRINGLIT():
             return StringLit(ctx.STRINGLIT().getText())
         elif ctx.FLOATLIT():
-            return FloatLit(float(ctx.FLOATLIT().getText()))
+            temp = ctx.FLOATLIT().getText()
+            if temp[0] == '.' and (temp[1] == 'e' or temp[1] == 'E'):
+                return FloatLit(float(0))
+            return FloatLit(float(temp))
         elif ctx.BOOLLIT():
             temp = ctx.BOOLLIT().getText()
             return BooleanLit(True) if temp == "true" else BooleanLit(False)

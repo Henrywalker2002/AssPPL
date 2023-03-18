@@ -1,0 +1,7 @@
+main : function void() {
+                    a, b : array[2] of integer = {1,2}, foo(3); 
+                }   
+
+                subfunc : function array[2] of boolean() {
+                    a : auto = {2,3} + 6;
+                }

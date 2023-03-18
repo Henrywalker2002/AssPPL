@@ -129,7 +129,7 @@ fragment INTPART : [1-9] DIGIT* ('_'* DIGIT+)* ;
 
 fragment DIGIT : [0-9];
 
-FLOATLIT : ((INTPART|'0') DECPART | (INTPART|'0') DECPART? EXPPART ) {self.text=self.text.replace("_","")};
+FLOATLIT : ((INTPART|'0') DECPART | (INTPART|'0') DECPART? EXPPART | ('.' [Ee]'+'? [0-9]+)) {self.text=self.text.replace("_","")};
 
 fragment DECPART : '.' [0-9]* ;
 fragment EXPPART : [Ee][+-]? [0-9]+ ;

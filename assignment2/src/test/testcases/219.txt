@@ -1,0 +1,8 @@
+// test float 
+                        x : function float() {
+                            return 1.2;
+                        }
+
+                        main :function void() {
+                            print(x());
+                        }

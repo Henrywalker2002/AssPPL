@@ -1224,3 +1224,10 @@ max : function integer (a: array [2] of integer) {
 	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(BinExpr(==, FuncCall(foo, [IntegerLit(2)]), FuncCall(foo, [IntegerLit(3)])), BlockStmt([ReturnStmt(BinExpr(==, FuncCall(foo, [IntegerLit(2)]), FuncCall(foo, [IntegerLit(3)])))]))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 400))
+
+    def test_short_vardecl(self):
+        input = """x: integer = .e1;"""
+        expect = """Program([
+	VarDecl(x, IntegerType, FloatLit(0.0))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 401))
