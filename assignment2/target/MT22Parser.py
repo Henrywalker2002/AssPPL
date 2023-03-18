@@ -12,7 +12,7 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\66")
-        buf.write("\u0180\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u0189\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
         buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
@@ -43,58 +43,59 @@ def serializedATN():
         buf.write("\36\3\36\3\36\3\36\3\36\5\36\u0133\n\36\3\37\3\37\3\37")
         buf.write("\3\37\3\37\3\37\3 \3 \3 \3 \5 \u013f\n \3 \3 \3 \3 \3")
         buf.write(" \3 \3 \3 \3 \3!\3!\3!\3!\3!\3\"\3\"\5\"\u0151\n\"\3#")
-        buf.write("\3#\3#\3#\3#\3$\3$\3$\3$\3$\3$\3$\5$\u015f\n$\3$\3$\3")
-        buf.write("$\3$\3$\5$\u0166\n$\5$\u0168\n$\3%\3%\3%\3%\5%\u016e\n")
-        buf.write("%\3&\3&\3&\5&\u0173\n&\3&\3&\3\'\3\'\3\'\3\'\5\'\u017b")
-        buf.write("\n\'\3(\3(\3(\3(\2\5&(*)\2\4\6\b\n\f\16\20\22\24\26\30")
-        buf.write("\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLN\2\6\3\2\',")
-        buf.write("\3\2$%\4\2\37\37##\4\2\36\36!\"\2\u018f\2P\3\2\2\2\4Y")
-        buf.write("\3\2\2\2\6_\3\2\2\2\be\3\2\2\2\nk\3\2\2\2\fu\3\2\2\2\16")
-        buf.write("\u0086\3\2\2\2\20\u0089\3\2\2\2\22\u0097\3\2\2\2\24\u009e")
-        buf.write("\3\2\2\2\26\u00a0\3\2\2\2\30\u00b2\3\2\2\2\32\u00b4\3")
-        buf.write("\2\2\2\34\u00bf\3\2\2\2\36\u00c3\3\2\2\2 \u00ca\3\2\2")
-        buf.write("\2\"\u00d1\3\2\2\2$\u00d8\3\2\2\2&\u00da\3\2\2\2(\u00e5")
-        buf.write("\3\2\2\2*\u00f0\3\2\2\2,\u00fe\3\2\2\2.\u0103\3\2\2\2")
-        buf.write("\60\u010b\3\2\2\2\62\u0118\3\2\2\2\64\u011a\3\2\2\2\66")
-        buf.write("\u011f\3\2\2\28\u0126\3\2\2\2:\u012b\3\2\2\2<\u0134\3")
-        buf.write("\2\2\2>\u013a\3\2\2\2@\u0149\3\2\2\2B\u014e\3\2\2\2D\u0152")
-        buf.write("\3\2\2\2F\u0167\3\2\2\2H\u016d\3\2\2\2J\u016f\3\2\2\2")
-        buf.write("L\u017a\3\2\2\2N\u017c\3\2\2\2PQ\7\25\2\2QR\5\36\20\2")
-        buf.write("RS\7\26\2\2S\3\3\2\2\2TU\5\2\2\2UV\7\31\2\2VW\5\4\3\2")
-        buf.write("WZ\3\2\2\2XZ\5\2\2\2YT\3\2\2\2YX\3\2\2\2Z\5\3\2\2\2[\\")
-        buf.write("\7.\2\2\\]\7\31\2\2]`\5\6\4\2^`\7.\2\2_[\3\2\2\2_^\3\2")
-        buf.write("\2\2`\7\3\2\2\2ab\7\61\2\2bc\7\31\2\2cf\5\b\5\2df\7\61")
-        buf.write("\2\2ea\3\2\2\2ed\3\2\2\2f\t\3\2\2\2gh\7\60\2\2hi\7\31")
-        buf.write("\2\2il\5\n\6\2jl\7\60\2\2kg\3\2\2\2kj\3\2\2\2l\13\3\2")
-        buf.write("\2\2mn\5\n\6\2nr\7\32\2\2os\7\35\2\2ps\7\34\2\2qs\5\32")
-        buf.write("\16\2ro\3\2\2\2rp\3\2\2\2rq\3\2\2\2sv\3\2\2\2tv\5\16\b")
-        buf.write("\2um\3\2\2\2ut\3\2\2\2v\r\3\2\2\2wx\7\60\2\2xy\7\31\2")
-        buf.write("\2yz\5\16\b\2z{\7\31\2\2{|\5\"\22\2|\u0087\3\2\2\2}~\7")
-        buf.write("\60\2\2~\u0082\7\32\2\2\177\u0083\7\35\2\2\u0080\u0083")
-        buf.write("\7\34\2\2\u0081\u0083\5\32\16\2\u0082\177\3\2\2\2\u0082")
-        buf.write("\u0080\3\2\2\2\u0082\u0081\3\2\2\2\u0083\u0084\3\2\2\2")
-        buf.write("\u0084\u0085\7 \2\2\u0085\u0087\5\"\22\2\u0086w\3\2\2")
-        buf.write("\2\u0086}\3\2\2\2\u0087\17\3\2\2\2\u0088\u008a\7\3\2\2")
-        buf.write("\u0089\u0088\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u008c\3")
-        buf.write("\2\2\2\u008b\u008d\7\4\2\2\u008c\u008b\3\2\2\2\u008c\u008d")
-        buf.write("\3\2\2\2\u008d\u008e\3\2\2\2\u008e\u008f\7\60\2\2\u008f")
-        buf.write("\u0093\7\32\2\2\u0090\u0094\7\35\2\2\u0091\u0094\7\34")
-        buf.write("\2\2\u0092\u0094\5\32\16\2\u0093\u0090\3\2\2\2\u0093\u0091")
-        buf.write("\3\2\2\2\u0093\u0092\3\2\2\2\u0094\21\3\2\2\2\u0095\u0098")
-        buf.write("\5\24\13\2\u0096\u0098\3\2\2\2\u0097\u0095\3\2\2\2\u0097")
-        buf.write("\u0096\3\2\2\2\u0098\23\3\2\2\2\u0099\u009a\5\20\t\2\u009a")
-        buf.write("\u009b\7\31\2\2\u009b\u009c\5\24\13\2\u009c\u009f\3\2")
-        buf.write("\2\2\u009d\u009f\5\20\t\2\u009e\u0099\3\2\2\2\u009e\u009d")
-        buf.write("\3\2\2\2\u009f\25\3\2\2\2\u00a0\u00a1\7\60\2\2\u00a1\u00a2")
-        buf.write("\7\32\2\2\u00a2\u00a7\7\5\2\2\u00a3\u00a8\7\35\2\2\u00a4")
-        buf.write("\u00a8\7\34\2\2\u00a5\u00a8\5\32\16\2\u00a6\u00a8\7\6")
-        buf.write("\2\2\u00a7\u00a3\3\2\2\2\u00a7\u00a4\3\2\2\2\u00a7\u00a5")
-        buf.write("\3\2\2\2\u00a7\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9")
-        buf.write("\u00aa\7\27\2\2\u00aa\u00ab\5\22\n\2\u00ab\u00ae\7\30")
-        buf.write("\2\2\u00ac\u00ad\7\3\2\2\u00ad\u00af\7\60\2\2\u00ae\u00ac")
-        buf.write("\3\2\2\2\u00ae\u00af\3\2\2\2\u00af\u00b0\3\2\2\2\u00b0")
-        buf.write("\u00b1\5\30\r\2\u00b1\27\3\2\2\2\u00b2\u00b3\5J&\2\u00b3")
-        buf.write("\31\3\2\2\2\u00b4\u00b5\7\7\2\2\u00b5\u00b6\7\b\2\2\u00b6")
+        buf.write("\3#\3#\3#\3#\3$\3$\3$\3$\3$\3$\5$\u015e\n$\3$\3$\3$\3")
+        buf.write("$\3$\5$\u0165\n$\5$\u0167\n$\3%\3%\3%\3%\5%\u016d\n%\3")
+        buf.write("%\3%\3%\3%\3%\3%\5%\u0175\n%\5%\u0177\n%\3&\3&\3&\5&\u017c")
+        buf.write("\n&\3&\3&\3\'\3\'\3\'\3\'\5\'\u0184\n\'\3(\3(\3(\3(\2")
+        buf.write("\5&(*)\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,")
+        buf.write(".\60\62\64\668:<>@BDFHJLN\2\6\3\2\',\3\2$%\4\2\37\37#")
+        buf.write("#\4\2\36\36!\"\2\u0199\2P\3\2\2\2\4Y\3\2\2\2\6_\3\2\2")
+        buf.write("\2\be\3\2\2\2\nk\3\2\2\2\fu\3\2\2\2\16\u0086\3\2\2\2\20")
+        buf.write("\u0089\3\2\2\2\22\u0097\3\2\2\2\24\u009e\3\2\2\2\26\u00a0")
+        buf.write("\3\2\2\2\30\u00b2\3\2\2\2\32\u00b4\3\2\2\2\34\u00bf\3")
+        buf.write("\2\2\2\36\u00c3\3\2\2\2 \u00ca\3\2\2\2\"\u00d1\3\2\2\2")
+        buf.write("$\u00d8\3\2\2\2&\u00da\3\2\2\2(\u00e5\3\2\2\2*\u00f0\3")
+        buf.write("\2\2\2,\u00fe\3\2\2\2.\u0103\3\2\2\2\60\u010b\3\2\2\2")
+        buf.write("\62\u0118\3\2\2\2\64\u011a\3\2\2\2\66\u011f\3\2\2\28\u0126")
+        buf.write("\3\2\2\2:\u012b\3\2\2\2<\u0134\3\2\2\2>\u013a\3\2\2\2")
+        buf.write("@\u0149\3\2\2\2B\u014e\3\2\2\2D\u0152\3\2\2\2F\u0166\3")
+        buf.write("\2\2\2H\u0176\3\2\2\2J\u0178\3\2\2\2L\u0183\3\2\2\2N\u0185")
+        buf.write("\3\2\2\2PQ\7\25\2\2QR\5\36\20\2RS\7\26\2\2S\3\3\2\2\2")
+        buf.write("TU\5\2\2\2UV\7\31\2\2VW\5\4\3\2WZ\3\2\2\2XZ\5\2\2\2YT")
+        buf.write("\3\2\2\2YX\3\2\2\2Z\5\3\2\2\2[\\\7.\2\2\\]\7\31\2\2]`")
+        buf.write("\5\6\4\2^`\7.\2\2_[\3\2\2\2_^\3\2\2\2`\7\3\2\2\2ab\7\61")
+        buf.write("\2\2bc\7\31\2\2cf\5\b\5\2df\7\61\2\2ea\3\2\2\2ed\3\2\2")
+        buf.write("\2f\t\3\2\2\2gh\7\60\2\2hi\7\31\2\2il\5\n\6\2jl\7\60\2")
+        buf.write("\2kg\3\2\2\2kj\3\2\2\2l\13\3\2\2\2mn\5\n\6\2nr\7\32\2")
+        buf.write("\2os\7\35\2\2ps\7\34\2\2qs\5\32\16\2ro\3\2\2\2rp\3\2\2")
+        buf.write("\2rq\3\2\2\2sv\3\2\2\2tv\5\16\b\2um\3\2\2\2ut\3\2\2\2")
+        buf.write("v\r\3\2\2\2wx\7\60\2\2xy\7\31\2\2yz\5\16\b\2z{\7\31\2")
+        buf.write("\2{|\5\"\22\2|\u0087\3\2\2\2}~\7\60\2\2~\u0082\7\32\2")
+        buf.write("\2\177\u0083\7\35\2\2\u0080\u0083\7\34\2\2\u0081\u0083")
+        buf.write("\5\32\16\2\u0082\177\3\2\2\2\u0082\u0080\3\2\2\2\u0082")
+        buf.write("\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0085\7 \2\2")
+        buf.write("\u0085\u0087\5\"\22\2\u0086w\3\2\2\2\u0086}\3\2\2\2\u0087")
+        buf.write("\17\3\2\2\2\u0088\u008a\7\3\2\2\u0089\u0088\3\2\2\2\u0089")
+        buf.write("\u008a\3\2\2\2\u008a\u008c\3\2\2\2\u008b\u008d\7\4\2\2")
+        buf.write("\u008c\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008e\3")
+        buf.write("\2\2\2\u008e\u008f\7\60\2\2\u008f\u0093\7\32\2\2\u0090")
+        buf.write("\u0094\7\35\2\2\u0091\u0094\7\34\2\2\u0092\u0094\5\32")
+        buf.write("\16\2\u0093\u0090\3\2\2\2\u0093\u0091\3\2\2\2\u0093\u0092")
+        buf.write("\3\2\2\2\u0094\21\3\2\2\2\u0095\u0098\5\24\13\2\u0096")
+        buf.write("\u0098\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0096\3\2\2\2")
+        buf.write("\u0098\23\3\2\2\2\u0099\u009a\5\20\t\2\u009a\u009b\7\31")
+        buf.write("\2\2\u009b\u009c\5\24\13\2\u009c\u009f\3\2\2\2\u009d\u009f")
+        buf.write("\5\20\t\2\u009e\u0099\3\2\2\2\u009e\u009d\3\2\2\2\u009f")
+        buf.write("\25\3\2\2\2\u00a0\u00a1\7\60\2\2\u00a1\u00a2\7\32\2\2")
+        buf.write("\u00a2\u00a7\7\5\2\2\u00a3\u00a8\7\35\2\2\u00a4\u00a8")
+        buf.write("\7\34\2\2\u00a5\u00a8\5\32\16\2\u00a6\u00a8\7\6\2\2\u00a7")
+        buf.write("\u00a3\3\2\2\2\u00a7\u00a4\3\2\2\2\u00a7\u00a5\3\2\2\2")
+        buf.write("\u00a7\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\u00aa\7")
+        buf.write("\27\2\2\u00aa\u00ab\5\22\n\2\u00ab\u00ae\7\30\2\2\u00ac")
+        buf.write("\u00ad\7\3\2\2\u00ad\u00af\7\60\2\2\u00ae\u00ac\3\2\2")
+        buf.write("\2\u00ae\u00af\3\2\2\2\u00af\u00b0\3\2\2\2\u00b0\u00b1")
+        buf.write("\5\30\r\2\u00b1\27\3\2\2\2\u00b2\u00b3\5J&\2\u00b3\31")
+        buf.write("\3\2\2\2\u00b4\u00b5\7\7\2\2\u00b5\u00b6\7\b\2\2\u00b6")
         buf.write("\u00b7\5\6\4\2\u00b7\u00b8\7\t\2\2\u00b8\u00b9\7\n\2\2")
         buf.write("\u00b9\u00ba\7\34\2\2\u00ba\33\3\2\2\2\u00bb\u00bc\5\f")
         buf.write("\7\2\u00bc\u00bd\7\33\2\2\u00bd\u00c0\3\2\2\2\u00be\u00c0")
@@ -160,29 +161,33 @@ def serializedATN():
         buf.write("\2\2\u014e\u0150\7\21\2\2\u014f\u0151\5\"\22\2\u0150\u014f")
         buf.write("\3\2\2\2\u0150\u0151\3\2\2\2\u0151C\3\2\2\2\u0152\u0153")
         buf.write("\7\60\2\2\u0153\u0154\7\27\2\2\u0154\u0155\5\36\20\2\u0155")
-        buf.write("\u0156\7\30\2\2\u0156E\3\2\2\2\u0157\u015f\7\22\2\2\u0158")
-        buf.write("\u015f\7\23\2\2\u0159\u015f\5B\"\2\u015a\u015f\58\35\2")
-        buf.write("\u015b\u015f\5@!\2\u015c\u015f\5D#\2\u015d\u015f\5\f\7")
-        buf.write("\2\u015e\u0157\3\2\2\2\u015e\u0158\3\2\2\2\u015e\u0159")
-        buf.write("\3\2\2\2\u015e\u015a\3\2\2\2\u015e\u015b\3\2\2\2\u015e")
-        buf.write("\u015c\3\2\2\2\u015e\u015d\3\2\2\2\u015f\u0160\3\2\2\2")
-        buf.write("\u0160\u0168\7\33\2\2\u0161\u0166\5J&\2\u0162\u0166\5")
-        buf.write("> \2\u0163\u0166\5:\36\2\u0164\u0166\5<\37\2\u0165\u0161")
-        buf.write("\3\2\2\2\u0165\u0162\3\2\2\2\u0165\u0163\3\2\2\2\u0165")
-        buf.write("\u0164\3\2\2\2\u0166\u0168\3\2\2\2\u0167\u015e\3\2\2\2")
-        buf.write("\u0167\u0165\3\2\2\2\u0168G\3\2\2\2\u0169\u016a\5F$\2")
-        buf.write("\u016a\u016b\5H%\2\u016b\u016e\3\2\2\2\u016c\u016e\5F")
-        buf.write("$\2\u016d\u0169\3\2\2\2\u016d\u016c\3\2\2\2\u016eI\3\2")
-        buf.write("\2\2\u016f\u0172\7\25\2\2\u0170\u0173\5H%\2\u0171\u0173")
-        buf.write("\3\2\2\2\u0172\u0170\3\2\2\2\u0172\u0171\3\2\2\2\u0173")
-        buf.write("\u0174\3\2\2\2\u0174\u0175\7\26\2\2\u0175K\3\2\2\2\u0176")
-        buf.write("\u0177\5\34\17\2\u0177\u0178\5L\'\2\u0178\u017b\3\2\2")
-        buf.write("\2\u0179\u017b\5\34\17\2\u017a\u0176\3\2\2\2\u017a\u0179")
-        buf.write("\3\2\2\2\u017bM\3\2\2\2\u017c\u017d\5L\'\2\u017d\u017e")
-        buf.write("\7\2\2\3\u017eO\3\2\2\2\'Y_ekru\u0082\u0086\u0089\u008c")
-        buf.write("\u0093\u0097\u009e\u00a7\u00ae\u00bf\u00c3\u00ca\u00d1")
-        buf.write("\u00d8\u00e2\u00ed\u00f8\u00fe\u0103\u010b\u0118\u0126")
-        buf.write("\u0132\u013e\u0150\u015e\u0165\u0167\u016d\u0172\u017a")
+        buf.write("\u0156\7\30\2\2\u0156E\3\2\2\2\u0157\u015e\7\22\2\2\u0158")
+        buf.write("\u015e\7\23\2\2\u0159\u015e\5B\"\2\u015a\u015e\58\35\2")
+        buf.write("\u015b\u015e\5@!\2\u015c\u015e\5D#\2\u015d\u0157\3\2\2")
+        buf.write("\2\u015d\u0158\3\2\2\2\u015d\u0159\3\2\2\2\u015d\u015a")
+        buf.write("\3\2\2\2\u015d\u015b\3\2\2\2\u015d\u015c\3\2\2\2\u015e")
+        buf.write("\u015f\3\2\2\2\u015f\u0167\7\33\2\2\u0160\u0165\5J&\2")
+        buf.write("\u0161\u0165\5> \2\u0162\u0165\5:\36\2\u0163\u0165\5<")
+        buf.write("\37\2\u0164\u0160\3\2\2\2\u0164\u0161\3\2\2\2\u0164\u0162")
+        buf.write("\3\2\2\2\u0164\u0163\3\2\2\2\u0165\u0167\3\2\2\2\u0166")
+        buf.write("\u015d\3\2\2\2\u0166\u0164\3\2\2\2\u0167G\3\2\2\2\u0168")
+        buf.write("\u016d\5F$\2\u0169\u016a\5\f\7\2\u016a\u016b\7\33\2\2")
+        buf.write("\u016b\u016d\3\2\2\2\u016c\u0168\3\2\2\2\u016c\u0169\3")
+        buf.write("\2\2\2\u016d\u016e\3\2\2\2\u016e\u016f\5H%\2\u016f\u0177")
+        buf.write("\3\2\2\2\u0170\u0175\5F$\2\u0171\u0172\5\f\7\2\u0172\u0173")
+        buf.write("\7\33\2\2\u0173\u0175\3\2\2\2\u0174\u0170\3\2\2\2\u0174")
+        buf.write("\u0171\3\2\2\2\u0175\u0177\3\2\2\2\u0176\u016c\3\2\2\2")
+        buf.write("\u0176\u0174\3\2\2\2\u0177I\3\2\2\2\u0178\u017b\7\25\2")
+        buf.write("\2\u0179\u017c\5H%\2\u017a\u017c\3\2\2\2\u017b\u0179\3")
+        buf.write("\2\2\2\u017b\u017a\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017e")
+        buf.write("\7\26\2\2\u017eK\3\2\2\2\u017f\u0180\5\34\17\2\u0180\u0181")
+        buf.write("\5L\'\2\u0181\u0184\3\2\2\2\u0182\u0184\5\34\17\2\u0183")
+        buf.write("\u017f\3\2\2\2\u0183\u0182\3\2\2\2\u0184M\3\2\2\2\u0185")
+        buf.write("\u0186\5L\'\2\u0186\u0187\7\2\2\3\u0187O\3\2\2\2)Y_ek")
+        buf.write("ru\u0082\u0086\u0089\u008c\u0093\u0097\u009e\u00a7\u00ae")
+        buf.write("\u00bf\u00c3\u00ca\u00d1\u00d8\u00e2\u00ed\u00f8\u00fe")
+        buf.write("\u0103\u010b\u0118\u0126\u0132\u013e\u0150\u015d\u0164")
+        buf.write("\u0166\u016c\u0174\u0176\u017b\u0183")
         return buf.getvalue()
 
 
@@ -2712,10 +2717,6 @@ class MT22Parser ( Parser ):
             return self.getTypedRuleContext(MT22Parser.FunccallstmtContext,0)
 
 
-        def vardecl(self):
-            return self.getTypedRuleContext(MT22Parser.VardeclContext,0)
-
-
         def blockstmt(self):
             return self.getTypedRuleContext(MT22Parser.BlockstmtContext,0)
 
@@ -2749,12 +2750,12 @@ class MT22Parser ( Parser ):
         localctx = MT22Parser.StmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 68, self.RULE_stmt)
         try:
-            self.state = 357
+            self.state = 356
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MT22Parser.T__13, MT22Parser.T__14, MT22Parser.T__15, MT22Parser.T__16, MT22Parser.IDENTIFY]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 348
+                self.state = 347
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,31,self._ctx)
                 if la_ == 1:
@@ -2787,34 +2788,29 @@ class MT22Parser ( Parser ):
                     self.funccallstmt()
                     pass
 
-                elif la_ == 7:
-                    self.state = 347
-                    self.vardecl()
-                    pass
 
-
-                self.state = 350
+                self.state = 349
                 self.match(MT22Parser.SEMI)
                 pass
             elif token in [MT22Parser.T__9, MT22Parser.T__11, MT22Parser.T__12, MT22Parser.LP]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 355
+                self.state = 354
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [MT22Parser.LP]:
-                    self.state = 351
+                    self.state = 350
                     self.blockstmt()
                     pass
                 elif token in [MT22Parser.T__12]:
-                    self.state = 352
+                    self.state = 351
                     self.forstmt()
                     pass
                 elif token in [MT22Parser.T__9]:
-                    self.state = 353
+                    self.state = 352
                     self.ifstmt()
                     pass
                 elif token in [MT22Parser.T__11]:
-                    self.state = 354
+                    self.state = 353
                     self.whilestmt()
                     pass
                 else:
@@ -2840,13 +2836,20 @@ class MT22Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def stmtlist(self):
+            return self.getTypedRuleContext(MT22Parser.StmtlistContext,0)
+
+
         def stmt(self):
             return self.getTypedRuleContext(MT22Parser.StmtContext,0)
 
 
-        def stmtlist(self):
-            return self.getTypedRuleContext(MT22Parser.StmtlistContext,0)
+        def vardecl(self):
+            return self.getTypedRuleContext(MT22Parser.VardeclContext,0)
 
+
+        def SEMI(self):
+            return self.getToken(MT22Parser.SEMI, 0)
 
         def getRuleIndex(self):
             return MT22Parser.RULE_stmtlist
@@ -2865,21 +2868,49 @@ class MT22Parser ( Parser ):
         localctx = MT22Parser.StmtlistContext(self, self._ctx, self.state)
         self.enterRule(localctx, 70, self.RULE_stmtlist)
         try:
-            self.state = 363
+            self.state = 372
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,36,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 359
-                self.stmt()
-                self.state = 360
+                self.state = 362
+                self._errHandler.sync(self)
+                la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
+                if la_ == 1:
+                    self.state = 358
+                    self.stmt()
+                    pass
+
+                elif la_ == 2:
+                    self.state = 359
+                    self.vardecl()
+                    self.state = 360
+                    self.match(MT22Parser.SEMI)
+                    pass
+
+
+                self.state = 364
                 self.stmtlist()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 362
-                self.stmt()
+                self.state = 370
+                self._errHandler.sync(self)
+                la_ = self._interp.adaptivePredict(self._input,35,self._ctx)
+                if la_ == 1:
+                    self.state = 366
+                    self.stmt()
+                    pass
+
+                elif la_ == 2:
+                    self.state = 367
+                    self.vardecl()
+                    self.state = 368
+                    self.match(MT22Parser.SEMI)
+                    pass
+
+
                 pass
 
 
@@ -2927,13 +2958,13 @@ class MT22Parser ( Parser ):
         self.enterRule(localctx, 72, self.RULE_blockstmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 365
+            self.state = 374
             self.match(MT22Parser.LP)
-            self.state = 368
+            self.state = 377
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MT22Parser.T__9, MT22Parser.T__11, MT22Parser.T__12, MT22Parser.T__13, MT22Parser.T__14, MT22Parser.T__15, MT22Parser.T__16, MT22Parser.LP, MT22Parser.IDENTIFY]:
-                self.state = 366
+                self.state = 375
                 self.stmtlist()
                 pass
             elif token in [MT22Parser.RP]:
@@ -2941,7 +2972,7 @@ class MT22Parser ( Parser ):
             else:
                 raise NoViableAltException(self)
 
-            self.state = 370
+            self.state = 379
             self.match(MT22Parser.RP)
         except RecognitionException as re:
             localctx.exception = re
@@ -2984,20 +3015,20 @@ class MT22Parser ( Parser ):
         localctx = MT22Parser.DecllistContext(self, self._ctx, self.state)
         self.enterRule(localctx, 74, self.RULE_decllist)
         try:
-            self.state = 376
+            self.state = 385
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,36,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,38,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 372
+                self.state = 381
                 self.decl()
-                self.state = 373
+                self.state = 382
                 self.decllist()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 375
+                self.state = 384
                 self.decl()
                 pass
 
@@ -3043,9 +3074,9 @@ class MT22Parser ( Parser ):
         self.enterRule(localctx, 76, self.RULE_program)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 378
+            self.state = 387
             self.decllist()
-            self.state = 379
+            self.state = 388
             self.match(MT22Parser.EOF)
         except RecognitionException as re:
             localctx.exception = re

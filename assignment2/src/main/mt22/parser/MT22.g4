@@ -112,9 +112,9 @@ returnstmt: 'return' expr?;
 //call stmt
 funccallstmt : IDENTIFY LB (exprlist) RB;
 
-stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt|vardecl) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
+stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
 
-stmtlist: stmt stmtlist | stmt;
+stmtlist: ((stmt|(vardecl SEMI)) stmtlist) | (stmt|(vardecl SEMI));
 
 blockstmt: LP (stmtlist |) RP;
 

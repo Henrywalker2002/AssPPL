@@ -4,6 +4,7 @@ from AST import *
 
 
 class ASTGenSuite(unittest.TestCase):
+    
     def test_short_vardecl(self):
         input = """x: integer;"""
         expect = """Program([

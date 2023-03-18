@@ -116,14 +116,14 @@ class ASTGeneration(MT22Visitor):
         temp = self.visit(ctx.stmtlist())
         return BlockStmt(temp)
     
-    # stmtlist: stmt stmtlist | stmt;
+    # stmtlist: (stmt|(vardecl SEMI) stmtlist) | (stmt|(vardecl SEMI));
     def visitStmtlist(self, ctx: MT22Parser.StmtlistContext):
-        temp = self.visit(ctx.stmt())
-        if ctx.getChildCount() == 1:
+        temp = self.visit(ctx.getChild(0))
+        if ctx.stmtlist() == None:
             return temp if isinstance(temp, list) else [temp]
         return (temp if isinstance(temp, list) else [temp]) + self.visit(ctx.stmtlist())
     
-    #stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt|vardecl) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
+    # stmt: (('break'|'continue'|returnstmt|assignstmt|dowhilestmt|funccallstmt) SEMI)|(blockstmt|forstmt|ifstmt|whilestmt);
     def visitStmt(self, ctx: MT22Parser.StmtContext):
         if ctx.getChild(0).getText() == 'break':
             return BreakStmt()
@@ -137,8 +137,6 @@ class ASTGeneration(MT22Visitor):
             return self.visit(ctx.dowhilestmt())
         elif ctx.funccallstmt():
             return self.visit(ctx.funccallstmt())
-        elif ctx.vardecl():
-            return self.visit(ctx.vardecl())
         elif ctx.blockstmt():
             return self.visit(ctx.blockstmt())
         elif ctx.forstmt():
