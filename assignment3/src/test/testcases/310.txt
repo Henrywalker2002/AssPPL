@@ -1,0 +1,10 @@
+main: function void () {
+        }
+        
+        test1 : function void() {
+            i : integer;
+            for (i = 2, i < 10, i + 1) {
+                
+            }
+        }
+        

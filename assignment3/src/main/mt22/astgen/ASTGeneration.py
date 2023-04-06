@@ -43,7 +43,7 @@ class ASTGeneration(MT22Visitor):
         if ctx.getChildCount() == 1:
             return self.visit(ctx.getChild(0))
         else :
-            op = ctx.getChild(0)
+            op = ctx.getChild(0).getText()
             val = self.visit(ctx.getChild(1))
             return UnExpr(op, val)
 
@@ -101,7 +101,7 @@ class ASTGeneration(MT22Visitor):
         paralist = self.visit(ctx.paralist())
         inheritname = None
         if len(ctx.IDENTIFY()) == 2:
-            inheritname = ctx.IDENTIFY()[1]
+            inheritname = ctx.IDENTIFY()[1].getText()
         body = self.visit(ctx.body())
         return FuncDecl(funcname, type_, paralist, inheritname, body)
     
@@ -181,7 +181,7 @@ class ASTGeneration(MT22Visitor):
         exprlst = self.visit(ctx.exprlist())
         return CallStmt(name, exprlst)
     
-    # forstmt: 'for' LB (IDENTIFY|exprIndex) '=' INTLIT COMMA expr COMMA expr RB stmt;
+    # forstmt: 'for' LB (IDENTIFY|exprIndex) '=' expr COMMA expr COMMA expr RB stmt;
     def visitForstmt(self, ctx: MT22Parser.ForstmtContext):
         stmt  = self.visit(ctx.stmt())
         lhs = None
@@ -189,11 +189,11 @@ class ASTGeneration(MT22Visitor):
             lhs = Id(ctx.IDENTIFY().getText())
         else :
             lhs = self.visit(ctx.exprIndex())
-        rhs = IntegerLit(int(ctx.INTLIT().getText()))
+        rhs = self.visit(ctx.expr()[0])
         init = AssignStmt(lhs, rhs)
         exprlst = ctx.expr()
-        cond = self.visit(exprlst[0])
-        expr = self.visit(exprlst[1])
+        cond = self.visit(exprlst[1])
+        expr = self.visit(exprlst[2])
         return ForStmt(init, cond, expr, stmt)
 
     # ifstmt : 'if' LB expr RB stmt ('else' stmt)?;

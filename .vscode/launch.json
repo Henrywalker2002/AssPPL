@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "name": "Python: Current File",
             "type": "python",
@@ -12,8 +13,8 @@
             "program": "run.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["test", "ASTGenSuite"],
-            "cwd": "${workspaceFolder}/assignment2/src"
+            "args": ["test", "CheckerSuite"],
+            "cwd": "${workspaceFolder}/assignment3/src"
         }
     ]
     

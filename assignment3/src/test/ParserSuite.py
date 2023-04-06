@@ -3,44 +3,16 @@ from TestUtils import TestParser
 
 
 class ParserSuite(unittest.TestCase):
-    def test_short_vardecl(self):
-        """Test short variable declaration"""
-        input = """delta: integer = 3;"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 201))
-
-    def test_full_vardecl(self):
-        """Test full variable declaration"""
-        input = """a, b, c: integer = 3, 4, 6;"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 202))
-
-    def test_wrong_full_vardecl(self):
-        """Test wrong full variable declaration"""
-        input = """a, b, c, d: integer = 3, 4, 6;"""
-        expect = "Error on line 1 col 29: ;"
-        self.assertTrue(TestParser.test(input, expect, 203))
-
-    def test_simple_program(self):
-        """Test simple program"""
-        input = """main: function void () {}"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 204))
-
-    def test_full_program(self):
-        """Test full program"""
-        input = """x: integer = 65;
-        fact: function integer (n: integer) {
-            if (n == 0) return 1;
-            else return n * fact(n - 1);
+    def test1(self):
+        inp = """main: function void () {
         }
-        inc: function void(out n: integer, delta: integer) {
-            n = n + delta;
+        
+        test1 : function void() {
+            i : integer;
+            for (i = 2.0, i < 10, i + 1) {
+                
+            }
         }
-        main: function void() {
-            delta: integer = fact(3);
-            inc(x, delta);
-            printInteger(x);
-        }"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 205))
+        """
+        out = ""
+        self.assertTrue(TestParser.test(inp, out, 310))

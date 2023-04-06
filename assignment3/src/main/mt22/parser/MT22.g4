@@ -101,7 +101,7 @@ ifstmt : 'if' LB expr RB stmt ('else' stmt)?;
 whilestmt: 'while' LB expr RB stmt;
 
 //for statement
-forstmt: 'for' LB (IDENTIFY|exprIndex) '=' INTLIT COMMA expr COMMA expr RB stmt;
+forstmt: 'for' LB (IDENTIFY|exprIndex) '=' expr COMMA expr COMMA expr RB stmt;
 
 //do while
 dowhilestmt: 'do' blockstmt 'while' expr;
