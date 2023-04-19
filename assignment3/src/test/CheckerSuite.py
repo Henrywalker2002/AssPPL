@@ -4,15 +4,25 @@ from AST import *
 
 class CheckerSuite(unittest.TestCase):
     def test1(self):
-        inp = """main: function void () {
+        inp = """
+        b : array [6] of integer;
+        a : auto = 5;
+        main: function void () {
+           
         }
         
-        test1 : function void() {
-            i : integer;
-            for (i = 2, i < 10, i + 1) {
+        test1 : function auto (a: auto) {
+            for (b[test(2)] = 2, b[1] < 3, b[1]*3) {
                 
             }
+            return 3;
         }
+        
+        test : function auto(y : integer) inherit test1 {
+            super(2);
+            a : string = test1(2);
+        }
+
         """
         out = ""
         self.assertTrue(TestChecker.test(inp, out, 310))
