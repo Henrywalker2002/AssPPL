@@ -1,6 +1,8 @@
 from Visitor import Visitor
 from StaticError import *
+
 # from main.mt22.utils.AST import *
+
 from functools import reduce
 from abc import ABC, abstractmethod, ABCMeta
 from typing import List, Tuple
@@ -65,6 +67,32 @@ class AutoType(Type):
 class VoidType(Type):
     def __str__(self):
         return self.__class__.__name__
+
+
+class Stmt(AST):
+    pass
+
+class Expr(Stmt):
+    pass
+
+class LHS(Expr):
+    pass
+
+class CallStmt(Stmt):
+    def __init__(self, name: str, args: List[Expr]):
+        self.name = name
+        self.args = args
+
+    def __str__(self):
+        return "CallStmt({}, {})".format(self.name, ", ".join([str(expr) for expr in self.args]))
+    
+
+class Id(LHS):
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self):
+        return "Id({})".format(self.name)
     
 
 class getFunction(Visitor):
@@ -79,8 +107,8 @@ class getFunction(Visitor):
     
     # name: str, typ: Type, init: Expr or None = None
     def visitVarDecl(self, ctx, o) :
-        if ctx.name in o.keys():
-            raise Redeclared(Variable(), ctx.name)
+        # if ctx.name in o.keys():
+        #     raise Redeclared(Variable(), ctx.name)
         o[ctx.name] = {}
         o[ctx.name]['type'] = ctx.typ 
         return o 
@@ -88,13 +116,14 @@ class getFunction(Visitor):
     # name: str, return_type: Type, params: List[ParamDecl], inherit: str or None, body: BlockStmt
     def visitFuncDecl(self, ctx, o):
         o[1] = ctx.name
-        if ctx.name in o.keys():
-            raise Redeclared(Function(), ctx.name)
+        # if ctx.name in o.keys():
+        #     raise Redeclared(Function(), ctx.name)
         o[ctx.name] = {}
         o[ctx.name]['param'] = {}
         o[ctx.name]['inherit'] = {}
         for decl in ctx.params:
-            o = self.visit(decl, o)     
+            o = self.visit(decl, o)
+             
         o[ctx.name]['returnType'] = ctx.return_type
         return o 
 
@@ -110,25 +139,76 @@ def helperType(typ, name, o):
             typ = o[name]['type'] 
         else:
             typ = o[o[1]]['env'][typ][name]
-    return typ     
+    return typ    
+
+def helpInfer(index, name, typ, o):
+    if isinstance(index, int):
+        if index == -1:
+            o[name] = typ 
+        else:
+            o[o[1]]['env'][index][name] = typ
+            if name in o[o[1]]['param'].keys():
+                o[o[1]]['param'][name] = typ
+            elif o[o[1]]['parent'] != None and name in o[o[o[1]]['parent']]['param'].keys():
+                o[o[o[1]]['parent']]['param'][name] = typ 
+    else:
+        o[name]['returnType'] = typ 
+    return o 
     
 class StaticChecker(Visitor):
     
-    # def __init__(self, ast):
-    #     self.ast = ast
+    def __init__(self, ast):
+        self.ast = ast
     
-    # def check(self):
-    #     o = None
-    #     return self.visit(self.ctx, o)
+    def check(self):
+        o = None
+        return self.visit(self.ast, o)
     
     # program decls: List[Decl]
     def visitProgram(self, ctx, o):
         temp = getFunction(self.ast)
         o = temp.visitProgram(ctx, o)
+        o['visitedFunctionDecl'] = []
         o['super'] = {}
         o['super']['returnType'] = VoidType()
         o['preventDefault'] = {}
         o['preventDefault']['returnType'] = VoidType()
+        
+        # special function
+        o['printInteger'] = {}
+        o['printInteger']['param'] = {}
+        o['printInteger']['param']['arg'] = IntegerType()
+        o['printInteger']['returnType'] = VoidType()
+        
+        o['readFloat'] = {}
+        o['readFloat']['param'] = {}
+        o['readFloat']['returnType'] = FloatType()
+        
+        o['writeFloat'] = {}
+        o['writeFloat']['param'] = {}
+        o['writeFloat']['param']['arg'] = FloatType()
+        o['writeFloat']['returnType'] = VoidType()
+        
+        o['readBoolean'] = {}
+        o['readBoolean']['param'] = {}
+        o['readBoolean']['returnType'] = BooleanType()
+        
+        o['printBoolean'] = {}
+        o['printBoolean']['param'] = {}
+        o['printBoolean']['param']['arg'] = BooleanType()
+        o['printBoolean']['returnType'] = VoidType()
+        
+        o['readString'] = {}
+        o['readString']['param'] = {}
+        o['readString']['returnType'] = StringType()
+        
+        o['printString'] = {}
+        o['printString']['param'] = {}
+        o['printString']['param']['arg'] = StringType()
+        o['printString']['returnType'] = VoidType()
+        
+        lst = ['readInteger', 'printInteger', 'readFloat', 'writeFloat', 'readBoolean', 'printBoolean', 'readString', 'printString', 'super', 'preventDefault']
+        o['visitedFunctionDecl'] += lst
         o[1] = ""
         o[2] = False #in loop ?
         o[3] = False
@@ -144,15 +224,26 @@ class StaticChecker(Visitor):
         o[1] = ctx.name
         o[ctx.name]['env'] = [{}]
         
+        if ctx.name in o['visitedFunctionDecl']:
+            raise Redeclared(Function(), ctx.name)
+
+        o['visitedFunctionDecl'].append(ctx.name)
+        o[ctx.name]['parent'] = None
+        
         if ctx.inherit is not None :
             if ctx.inherit not in o.keys():
                 raise Undeclared(Function(), ctx.inherit)
             o["firstline"] = True
             o[ctx.name]['parent'] = ctx.inherit
         o[ctx.name]['inherit'] = {}
-        o[ctx.name]['param'] = {}
+        
+        # o[ctx.name]['env'] = o[ctx.inherit]['inherit'] if ctx.inherit is not None else {}
         for decl in ctx.params:
-            o = self.visit(decl, o)      
+            o = self.visit(decl, o)     
+             
+        if ctx.inherit is not None:
+            for k,v in o[ctx.inherit]['inherit'].items():
+                o[ctx.name]['env'][-1][k] = v
         o = self.visit(ctx.body, o)
         o[1] = ''
         return o
@@ -163,12 +254,18 @@ class StaticChecker(Visitor):
             o[o[1]]['inherit'][ctx.name] = ctx.typ
         if ctx.name in o[o[1]]['env'][-1].keys():
             raise Redeclared(Parameter(), ctx.name)
-        o[o[1]]['env'][-1][ctx.name] = ctx.typ
+        elif o[o[1]]['parent'] and ctx.name in o[o[o[1]]['parent']]['inherit'].keys():
+            raise Invalid(Parameter(), ctx.name)
+        o[o[1]]['env'][-1][ctx.name] = ctx.typ if ctx.name not in o[o[1]]['param'].keys() else o[o[1]]['param'][ctx.name]
         o[o[1]]['param'][ctx.name] = ctx.typ 
         return o
     
     # name: str, typ: Type, init: Expr or None = None
     def visitVarDecl(self, ctx, o) :
+        if ctx.name in o['visitedFunctionDecl']:
+            raise Redeclared(Variable(), ctx.name)
+        o['visitedFunctionDecl'].append(ctx.name)
+        
         if ctx.typ.__class__.__name__ == 'ArrayType':
             o[3] = ctx.typ.typ
             o[4] = reduce(lambda x, y : x * y, ctx.typ.dimensions, 1)
@@ -176,11 +273,14 @@ class StaticChecker(Visitor):
         if o[1] != '':
             if ctx.name in o[o[1]]['env'][-1].keys():
                 raise Redeclared(Variable(), ctx.name)
+            # elif ctx.name in o.keys():
+            #     raise Redeclared(Variable(), ctx.name)
             typ = ctx.typ
             if typ.__class__.__name__ == 'AutoType':
                 if ctx.init is None:
                     raise Invalid(Variable(), ctx.name)
                 else :
+                    o[o[1]]['env'][-1][ctx.name] = "AutoType"
                     typ, name,o = self.visit(ctx.init, o)
                     typ = helperType(typ, name, o)
                     if typ.__class__.__name__ == 'AutoType':
@@ -191,7 +291,8 @@ class StaticChecker(Visitor):
             # compare type 
             if ctx.init is not None:
                 init, temp,o = self.visit(ctx.init, o)
-                if init.__class__.__name__ == 'AutoType':
+                initt = helperType(initt, temp, o)
+                if initt.__class__.__name__ == 'AutoType':
                     o[temp]['returnType'] = typ 
                 elif isinstance(init, int):
                     init = helperType(init, temp, o)
@@ -233,12 +334,15 @@ class StaticChecker(Visitor):
     # name: str, args: List[Expr]
     def visitCallStmt(self,ctx,o):  
         if ctx.name == "super":
-            if 'parent' not in o[o[1]].keys():
-                raise InvalidStatementInFunction(ctx.name)
-            return self.visit(CallStmt(o[o[1]]['parent'], ctx.args), o)
+            if o[o[1]]['parent'] is None:
+                raise InvalidStatementInFunction(o[1])
+            o = self.visit(CallStmt(o[o[1]]['parent'], ctx.args), o)
+            o['firstline'] = False
+            return o
         elif ctx.name == "preventDefault" : 
-            if 'parent' not in o[o[1]].keys():
+            if o[o[1]]['parent'] is None:
                raise InvalidStatementInFunction(ctx.name)
+            o['firstline'] = False
             return o
         if ctx.name not in o.keys() or 'returnType' not in o[ctx.name]:
             raise Undeclared(Function(), ctx.name)
@@ -247,6 +351,8 @@ class StaticChecker(Visitor):
         # handle function param
         params = o[ctx.name]['param']
         if len(params) != len(ctx.args):
+            # if o['firstline']:
+            #     raise TypeMismatchInExpression(ctx.args)
             raise TypeMismatchInStatement(ctx)
         index = 0
         for k,v in params.items():
@@ -262,6 +368,8 @@ class StaticChecker(Visitor):
             elif v.__class__.__name__ == 'FloatType' and arg.__class__.__name__ == 'IntegerType':
                 pass 
             elif v.__class__.__name__ != arg.__class__.__name__:
+            # if o['firstline']:
+            #     raise TypeMismatchInExpression(ctx.args)
                 raise TypeMismatchInExpression(ctx)
             index += 1
         
@@ -272,18 +380,21 @@ class StaticChecker(Visitor):
         if ctx.expr is None:
             return VoidType()
         else:
-            typ, name, o = self.visit(ctx.expr, o)
-            typ = helperType(typ, name, o)
+            index, name, o = self.visit(ctx.expr, o)
+            typ = helperType(index, name, o)
             if typ.__class__.__name__ == 'AutoType':
                 if o[o[1]]['returnType'].__class__.__name__ == 'AutoType':
                     pass 
                 else :
-                    o[name]['returnType'] = typ
+                    # o[name]['returnType'] = typ
+                    o = helpInfer(index, name, o[o[1]]['returnType'], o)
             else:
                 if o[o[1]]['returnType'].__class__.__name__ == 'AutoType':
                     o[o[1]]['returnType'] = typ
                 else :
-                    if typ.__class__.__name__ != o[o[1]]['returnType'].__class__.__name__:
+                    if o[o[1]]['returnType'].__class__.__name__ == 'FloatType' and typ.__class__.__name__ == 'IntegerType':
+                        pass  
+                    elif typ.__class__.__name__ != o[o[1]]['returnType'].__class__.__name__:
                         raise TypeMismatchInStatement(ctx)
         return o     
     
@@ -311,9 +422,11 @@ class StaticChecker(Visitor):
     
     # cond: Expr, stmt: Stmt
     def visitWhileStmt(self, ctx ,o) : 
-        expr, name.o = self.visit(ctx.cond, o)
+        expr, name, o = self.visit(ctx.cond, o)
         typ = helperType(expr, name, o)
-        if typ.__class__.__name__ != "BooleanType":
+        if typ.__class__.__name__ == 'AutoType':
+            o = helpInfer(expr, name, BooleanType(), o)
+        elif typ.__class__.__name__ != "BooleanType":
             raise TypeMismatchInStatement(ctx)
         o[2] = True
         if ctx.stmt.__class__.__name__ == "BlockStmt":
@@ -327,28 +440,30 @@ class StaticChecker(Visitor):
         # handle init
         lhs, name,o = self.visit(ctx.init.lhs, o)
         typ = helperType(lhs, name, o)
-        if typ.__class__.__name__ != 'IntegerType':
+        if typ.__class__.__name__ == 'AutoType':
+            o = helpInfer(lhs, name, IntegerType(), o)
+        elif typ.__class__.__name__ != 'IntegerType':
             raise TypeMismatchInStatement(ctx)
         
         rhs, name,o = self.visit(ctx.init.rhs, o)
         typ = helperType(rhs, name, o)
         
         if typ.__class__.__name__ == 'AutoType':
-            o[name]['returnType'] = IntegerType()
+            o = helpInfer(rhs, name, IntegerType(), o)
         elif typ.__class__.__name__ != 'IntegerType':
             raise TypeMismatchInStatement(ctx)
         
         cond, name, o = self.visit(ctx.cond, o)
         typ = helperType(cond, name, o)
         if typ.__class__.__name__ == 'AutoType':
-            o[name]['returnType'] = IntegerType()
+            o = helpInfer(cond, name, BooleanType(), o)
         elif typ.__class__.__name__ != "BooleanType":
             raise TypeMismatchInStatement(ctx)
         
         upd, name, o = self.visit(ctx.upd, o)
         typ = helperType(upd, name, o)
         if typ.__class__.__name__ == 'AutoType':
-            o[name]['returnType'] = IntegerType()
+            o = helpInfer(upd, name, IntegerType(), o)
         elif typ.__class__.__name__ != "IntegerType":
             raise TypeMismatchInStatement(ctx)
         
@@ -363,7 +478,9 @@ class StaticChecker(Visitor):
     def visitIfStmt(self, ctx ,o) : 
         expr,name,o = self.visit(ctx.cond, o)
         typ = helperType(expr, name, o)
-        if typ.__class__.__name__ != "BooleanType":
+        if typ.__class__.__name__ == 'AutoType':
+            o = helpInfer(expr, name, BooleanType(), o)
+        elif typ.__class__.__name__ != "BooleanType":
             raise TypeMismatchInStatement(ctx)
         if ctx.tstmt.__class__.__name__ == "BlockStmt":
             o[o[1]]['env'].append({})
@@ -389,7 +506,7 @@ class StaticChecker(Visitor):
                     o = self.visit(CallStmt("super", []), o)
             else :
                 o = self.visit(CallStmt("super", []), o)
-        o['firstline'] = False
+        
         for decl in temp:
             if decl.__class__.__name__ == 'BlockStmt':
                 o[o[1]]['env'].append({})
@@ -400,26 +517,24 @@ class StaticChecker(Visitor):
     # lhs: LHS, rhs: Expr
     def visitAssignStmt(self, ctx ,o) : 
         i,name,o = self.visit(ctx.lhs, o)
-        rhs, rhsname,o = self.visit(ctx.rhs, o)
+        rindex, rhsname,o = self.visit(ctx.rhs, o)
         lhs = helperType(i, name, o)
-        rhs = helperType(rhs, rhsname, o)
+        rhs = helperType(rindex, rhsname, o)
         
         if lhs.__class__.__name__ == "AutoType":
             if rhs.__class__.__name__ == 'AutoType':
-                raise Invalid(Variable(), name)
+                # raise Invalid(Variable(), name)
+                pass 
             else :
-                if i != -1: 
-                    o[o[1]]['env'][-1 - i][name] = rhs 
-                else : 
-                    o[name]['type'] = rhs
+                o = helpInfer(i, name, rhs, o)
         else :
             rhs = helperType(rhs, rhsname, o)
             if rhs.__class__.__name__ == 'AutoType':
-                o[rhsname]['returnType'] = lhs
+                o = helpInfer(rindex, rhsname, lhs, o)
             elif lhs.__class__.__name__ == 'FloatType' and rhs.__class__.__name__ == 'IntegerType':
                 pass 
             elif rhs.__class__.__name__  != lhs.__class__.__name__: 
-                raise TypeMismatchInExpression(ctx)
+                raise TypeMismatchInStatement(ctx)
         return o
     
     # name: str, args: List[Expr]
@@ -519,12 +634,15 @@ class StaticChecker(Visitor):
         expr, name, o = self.visit(ctx.val, o)
         typ = helperType(expr, name, o)
         
-        if op == '!' and typ.__class__.__name__ != 'AutoType':
-            o[name]['returnType'] = BooleanType()
+        if op == '!' and typ.__class__.__name__ == 'AutoType':
+            # o[name]['returnType'] = BooleanType()
+            o = helpInfer(expr, name, BooleanType(), o)
+            typ = BooleanType()
         elif op == '!' and typ.__class__.__name__ != 'BooleanType':
             raise TypeMismatchInExpression(ctx)
-        elif op == '-' and typ.__class__.__name__ != 'AutoType':
-            o[name]['returnType'] = FloatType()
+        elif op == '-' and typ.__class__.__name__ == 'AutoType':
+            o = helpInfer(expr, name, IntegerType(), o)
+            typ = IntegerType()
         elif op == '-' and (typ.__class__.__name__ != 'FloatType' and typ.__class__.__name__ != 'IntegerType'):
             raise TypeMismatchInExpression(ctx)  
         return typ, None,o
@@ -539,21 +657,21 @@ class StaticChecker(Visitor):
         typ = None
         if op == '::':
             if typ1.__class__.__name__ == 'AutoType':
-                o[name1]['returnType'] = StringType()
+                o = helpInfer(left, name1, StringType(), o)
                 typ1 = StringType()
             if typ2.__class__.__name__ == 'AutoType':
-                o[name2]['returnType'] = StringType()
+                o = helpInfer(right, name2, StringType(), o)
                 typ2 = StringType()
             if typ1.__class__.__name__ != 'StringType' or typ2.__class__.__name__ != 'StringType':
                 raise TypeMismatchInExpression(ctx)
             typ = StringType()
         elif op == "+" or op == '-' or op == '*' or op == '/':
             if typ1.__class__.__name__ == 'AutoType':
-                o[name1]['returnType'] = FloatType()
-                typ1 = FloatType()
+                o = helpInfer(left, name1, IntegerType(), o)
+                typ1 = IntegerType()
             if typ2.__class__.__name__ == 'AutoType':
-                o[name2]['returnType'] = FloatType()
-                typ2 = FloatType()
+                o = helpInfer(right, name2, IntegerType(), o)
+                typ2 = IntegerType()
             
             if typ1.__class__.__name__ == 'FloatType' and typ2.__class__.__name__ == 'FloatType':
                 typ = FloatType()
@@ -567,30 +685,30 @@ class StaticChecker(Visitor):
                 raise TypeMismatchInExpression(ctx)
         elif op in ['==', '!=']: 
             if typ1.__class__.__name__ == "AutoType" and typ2.__class__.__name__ in ['IntegerType', "BooleanType"]:
-                o[name1]['returnType'] = typ2
+                o = helpInfer(left, name1, typ2, o)
             if typ2.__class__.__name__ == "AutoType" and typ1.__class__.__name__ in ['IntegerType', "BooleanType"]:
-                o[name2]['returnType'] = typ1
+                o = helpInfer(right, name2, typ1, o)
             
             if typ1.__class__.__name__ not in ['IntegerType', 'BooleanType'] or typ2.__class__.__name__  not in ['IntegerType', 'BooleanType']:
                 raise TypeMismatchInExpression(ctx)
             typ = BooleanType()
         elif op in ['>', '<', '>=', '<=']:
             if typ1.__class__.__name__ == 'AutoType':
-                o[name1]['returnType'] = FloatType()
-                typ1 = FloatType()
+                o = helpInfer(left, name1, IntegerType(), o)
+                typ1 = IntegerType()
             if typ2.__class__.__name__ == 'AutoType':
-                o[name2]['returnType'] = FloatType()
-                typ2 = FloatType()
+                o = helpInfer(right, name2, IntegerType(), o)
+                typ2 = IntegerType()
             
             if typ1.__class__.__name__ not in ['IntegerType', 'FloatType'] or typ2.__class__.__name__  not in ['IntegerType', 'FloatType']:
                 raise TypeMismatchInStatement(ctx)
             typ = BooleanType()
         elif op == '%':
             if typ1.__class__.__name__ == 'AutoType':
-                o[name1]['returnType'] = IntegerType()
+                o = helpInfer(left, name1, IntegerType(), o)
                 typ1 = IntegerType()
             if typ2.__class__.__name__ == 'AutoType':
-                o[name2]['returnType'] = IntegerType()
+                o = helpInfer(right, name2, IntegerType(), o)
                 typ2 = IntegerType()
             
             if typ1.__class__.__name__ != 'IntegerType' or typ2.__class__.__name__ != 'IntegerType':
@@ -598,10 +716,10 @@ class StaticChecker(Visitor):
             typ = IntegerType()
         elif op in ['&&', '||']:
             if typ1.__class__.__name__ == 'AutoType':
-                o[name1]['returnType'] = BooleanType()
+                o = helpInfer(left, name1, BooleanType(), o)
                 typ1 = BooleanType()
             if typ2.__class__.__name__ == 'AutoType':
-                o[name2]['returnType'] = BooleanType()
+                o = helpInfer(right, name2, BooleanType(), o)
                 typ2 = BooleanType()
                 
             if typ1.__class__.__name__ != 'BooleanType' or typ2.__class__.__name__ != 'BooleanType':
@@ -609,18 +727,4 @@ class StaticChecker(Visitor):
             typ = BooleanType()
         return typ, None,o
             
-    # type 
-    def visitVoidType(self, ctx ,o) : pass 
-    # type 
-    def visitAutoType(self, ctx ,o) : pass 
-    # type 
-    def visitArrayType(self, ctx ,o) : pass 
-    # type 
-    def visitStringType(self, ctx ,o) : pass 
-    # type 
-    def visitBooleanType(self, ctx ,o) : pass 
-    # type 
-    def visitFloatType(self, ctx ,o) : pass 
-    # type 
-    def visitIntegerType(self, ctx ,o) : pass 
     
