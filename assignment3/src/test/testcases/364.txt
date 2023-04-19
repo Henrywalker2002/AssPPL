@@ -1,0 +1,11 @@
+main: function void (out b : string, a : array[3, 4] of integer) inherit abc {
+    for (i = 2, i < 3, i + 3) {
+        while (true) 
+            a = (2 > 2);
+            continue;
+            if (a + 2) {
+                return main();
+            }
+            break;
+    }
+}

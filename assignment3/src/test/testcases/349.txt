@@ -1,0 +1,8 @@
+main : function void (out a : string) {
+                    if (a[0]::b[a,foo]) return 2;
+                    else {
+                        break;
+                        continue;
+                        return; 
+                    }
+                }

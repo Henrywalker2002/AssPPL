@@ -262,9 +262,10 @@ class StaticChecker(Visitor):
     
     # name: str, typ: Type, init: Expr or None = None
     def visitVarDecl(self, ctx, o) :
-        if ctx.name in o['visitedFunctionDecl']:
+        if ctx.name in o['visitedFunctionDecl'] and o[1] == "":
             raise Redeclared(Variable(), ctx.name)
-        o['visitedFunctionDecl'].append(ctx.name)
+        if o[1] == "":
+            o['visitedFunctionDecl'].append(ctx.name)
         
         if ctx.typ.__class__.__name__ == 'ArrayType':
             o[3] = ctx.typ.typ
@@ -291,7 +292,7 @@ class StaticChecker(Visitor):
             # compare type 
             if ctx.init is not None:
                 init, temp,o = self.visit(ctx.init, o)
-                initt = helperType(initt, temp, o)
+                initt = helperType(init, temp, o)
                 if initt.__class__.__name__ == 'AutoType':
                     o[temp]['returnType'] = typ 
                 elif isinstance(init, int):
@@ -346,7 +347,9 @@ class StaticChecker(Visitor):
             return o
         if ctx.name not in o.keys() or 'returnType' not in o[ctx.name]:
             raise Undeclared(Function(), ctx.name)
-        # check if void type
+        
+        if o[ctx.name]['returnType'].__class__.__name__ == 'AutoType':
+            o[ctx.name]['returnType'] = VoidType()
         
         # handle function param
         params = o[ctx.name]['param']
@@ -378,7 +381,8 @@ class StaticChecker(Visitor):
     # expr: Expr or None = None
     def visitReturnStmt(self, ctx, o): 
         if ctx.expr is None:
-            return VoidType()
+            o[o[1]]['returnType'] = VoidType()
+            return o
         else:
             index, name, o = self.visit(ctx.expr, o)
             typ = helperType(index, name, o)
@@ -410,14 +414,16 @@ class StaticChecker(Visitor):
         
     # cond: Expr, stmt: BlockStmt
     def visitDoWhileStmt(self, ctx ,o) : 
-        expr, name = self.visit(ctx.cond, o)
-        typ = helperType(expr, name, o)
-        if typ.__class__.__name__ != "BooleanType":
-            raise TypeMismatchInStatement(ctx)
         o[2] = True
         o[o[1]]['env'].append({})
         stmt = self.visit(ctx.stmt, o)
         o[2] = False
+        
+        expr, name, o= self.visit(ctx.cond, o)
+        typ = helperType(expr, name, o)
+        if typ.__class__.__name__ != "BooleanType":
+            raise TypeMismatchInStatement(ctx)
+
         return o
     
     # cond: Expr, stmt: Stmt
@@ -574,7 +580,7 @@ class StaticChecker(Visitor):
         if len(ctx.explist) != o[4]:
             raise IllegalArrayLiteral(ctx)
         for exp in ctx.explist:
-            i, y = self.visit(exp, o)
+            i, y,o = self.visit(exp, o)
             temp = helperType(i, y, o)
             if temp.__class__.__name__ not in ['FloatType', 'IntegerType', 'StringType', 'BooleanType']:
                 raise TypeMismatchInExpression(ctx)
@@ -621,8 +627,8 @@ class StaticChecker(Visitor):
     # name: str
     def visitId(self, ctx ,o) : 
         if o[1] != '':
-            for i in range(0, len(o[o[1]]['env'])):
-                if ctx.name in o[o[1]]['env'][-1 - i]:
+            for i in range(len(o[o[1]]['env']) - 1, -1 , -1):
+                if ctx.name in o[o[1]]['env'][i]:
                     return i, ctx.name,o
         if ctx.name in o.keys() and 'type' in o[ctx.name].keys():
             return -1, ctx.name,o

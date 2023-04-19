@@ -1,20 +1,7 @@
-
-        foo : function boolean(x : auto, y : auto) {
-            if (x) {
-                printInteger(6);
-            }
-        }
-
-        super : function void() {
-            
-        }
-        
-        a : string = boo();
-        
-        boo : function auto() {
-            
-        }
-        
-        b : auto = foo(true, 4.0);
-
-        
+fact : function integer (n :integer) {
+                    if (n == 1) return 1;
+                    else return n*fact(n-1);
+                }
+                main : function void() {
+                    print(fact(5));
+                }

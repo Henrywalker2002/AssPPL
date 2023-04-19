@@ -1,0 +1,9 @@
+main: function void () {
+            a : boolean = true;
+            {
+                a : string;
+                a = "";
+            }
+            a = "";
+        }
+            

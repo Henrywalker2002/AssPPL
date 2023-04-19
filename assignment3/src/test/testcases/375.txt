@@ -1,0 +1,4 @@
+main : function string(inherit out a : auto) {
+            a : integer = {a,b, foo(a)};
+}
+        b : auto = {a,c,d};

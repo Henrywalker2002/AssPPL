@@ -1,0 +1,6 @@
+main: function void () {
+    for (i = 2, i < 3, i + 3) {
+        while (true) 
+            a = 2;
+    }
+}

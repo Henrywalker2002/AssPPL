@@ -1,0 +1,5 @@
+main : function void() {
+                }   
+                subfunc : function boolean() {
+                    return foo(3) == 2;
+                }

@@ -158,9 +158,9 @@ class TestChecker:
         try:
             res = checker.check()
             dest.write("")
-        except StaticError as e:
-            print(str(e))
-            # dest.write(str(e))
+        except Exception as e:
+            # print(str(e))
+            dest.write(str(e))
         finally:
             dest.close()
 

@@ -1,0 +1,6 @@
+
+        main : function void () {
+                if (foo(2) == foo(3)) {
+                        return true;
+                }
+        }

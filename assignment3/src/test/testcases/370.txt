@@ -1,0 +1,8 @@
+main : function auto() {
+    
+        }
+        
+        foo : function void() {
+            main();
+        }
+        

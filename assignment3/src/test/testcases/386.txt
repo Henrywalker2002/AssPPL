@@ -1,0 +1,3 @@
+
+                r, s: integer;
+                a, b: array [5] of integer;
