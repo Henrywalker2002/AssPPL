@@ -1,0 +1,14 @@
+
+        foo: function auto(x: auto, y: auto) {
+           while (x) {
+               y = y + 1 ;
+               if (x) return 1 ;
+               while(x || (y > 1)) {
+                   if (x) 
+                        return y + 1 ;
+                   else return 1 ;
+               }    
+           }
+           return 1.1 ;
+        }
+        

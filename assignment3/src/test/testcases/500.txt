@@ -1,0 +1,20 @@
+
+        goo: function auto (inherit a: auto, inherit b: auto) {
+            goo(1,2) ;
+            c: boolean = foo(2,2) ;
+        }
+        foo: function auto (c: auto, d: auto) inherit goo {
+            super(a,b) ;
+            goo(c,d) ;
+            return true ;
+            if (c + d == a + b) return goo(a,c) ;
+            else if (c > a) return 3 ;
+            else return 4 ;
+            return true;
+        } 
+       
+        main: function void() {
+            
+        }
+        
+        

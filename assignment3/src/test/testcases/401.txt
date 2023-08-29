@@ -1,0 +1,8 @@
+
+        a,b: integer;
+        c,d: float;
+        e,f: string;
+        g,h: boolean;
+        h,i: integer;
+        //main: function void(){}
+        

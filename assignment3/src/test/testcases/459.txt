@@ -1,0 +1,11 @@
+
+        main: function void() {
+            a: boolean ;
+            while (a) {
+               a: integer = 1 ;
+               while (a > 1)
+                  a = a + 1 ;
+               a: boolean = 1 ;
+            }
+        }
+        

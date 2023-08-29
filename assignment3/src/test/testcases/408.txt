@@ -1,0 +1,9 @@
+
+            a,b: boolean = true,false ;
+            c: string = "abcd" ;
+            d: array [2] of integer = {1,2};
+            e: auto = 1 ;
+            f: integer = e ;
+            g: float = f ;
+            h: boolean = e ;
+        

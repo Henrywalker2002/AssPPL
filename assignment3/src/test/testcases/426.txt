@@ -1,0 +1,10 @@
+
+           foo: function integer(inherit a: integer, b: float) {}
+           a: integer = foo1(1,1) ;
+           b: integer = foo1(1,2.1) ;
+           foo1: function auto (e: auto, b: auto) inherit foo {
+               
+           }
+        
+           main: function void() {}
+        

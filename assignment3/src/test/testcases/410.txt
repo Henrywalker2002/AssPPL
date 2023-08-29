@@ -1,0 +1,8 @@
+
+           a,b: array[2,2] of integer = {{1,2},{2,3}}, {{1,2},{2,3}};
+           c,d: array[2,2,2] of integer = {a,b}, {b,a} ;
+           e: auto = {c,d};
+           f: array[2,2,2] of integer = c ;
+           g: array[2,2,2] of integer = e ;
+           
+        

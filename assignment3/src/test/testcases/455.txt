@@ -1,0 +1,13 @@
+
+        foo: function auto() {}
+        main: function void() {
+            i: integer = 0 ;
+            a: integer = 1 ;
+            for (i = foo(), i < 5 , i + 1) {
+                foo: integer = 1 ;
+                printInteger: integer = 1 ;
+                a: integer = 1 ;
+                b: boolean = foo() ;
+            }
+        } 
+        

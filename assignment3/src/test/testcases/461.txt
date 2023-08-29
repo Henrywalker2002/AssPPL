@@ -1,0 +1,11 @@
+
+        foo: function auto(x: auto, y: auto) {
+            // do something
+        }
+        main: function void() {
+           while(foo(1,2)) {
+               a: boolean = foo(1,4) ;
+               b: integer = foo(1,2) ;
+           }
+        }
+        

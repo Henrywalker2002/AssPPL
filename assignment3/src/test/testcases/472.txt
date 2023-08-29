@@ -1,0 +1,9 @@
+
+        foo: function void () {}
+        printInteger: function void() {
+            
+        }
+        main: function void() {
+            printInteger() ;
+        }
+        

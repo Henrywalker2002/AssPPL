@@ -1,0 +1,7 @@
+
+        a: array[4] of integer = {foo(1.1), foo(1), -foo(2), -foo(1.1)};
+        foo: function auto(a: auto) {
+            a = -foo(5) + 1.1 ;
+            return a > 2 ;
+        }
+        

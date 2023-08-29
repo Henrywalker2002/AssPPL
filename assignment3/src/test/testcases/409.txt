@@ -1,0 +1,6 @@
+
+            a,b: auto = true,false ;
+            c: string = "abcd" ;
+            d: array[2] of boolean = {a,b} ;
+            e: array[2] of boolean = {1,2};
+        

@@ -1,0 +1,15 @@
+
+        foo: function auto (a: auto, b: auto) {
+            if (true) {
+                if (foo(2,1) + 3 > 5)
+                    return a + b ;
+                else if (foo(2,1)) {
+                    return foo(2,1) ;
+                } 
+                else return a + b ;
+            } 
+            else return true ;
+            
+            return true ;
+        } 
+        

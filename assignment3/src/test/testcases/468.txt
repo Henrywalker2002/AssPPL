@@ -1,0 +1,9 @@
+
+        foo: function auto(x: auto, y: auto) {
+          do {
+              a: integer = 1 ;
+              x = true ;
+          } while(x || foo(!x,2));
+          return true ;
+        }
+        

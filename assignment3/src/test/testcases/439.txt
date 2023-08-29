@@ -1,0 +1,15 @@
+
+        foo: function auto (x: auto, y: auto) {
+            return 2 ;
+        }
+        
+        goo: function auto(a: auto, b: auto) inherit foo {
+            preventDefault();
+            return 1.1;
+        } 
+        
+        main: function void () {
+            a: auto = {foo(1.1,2), goo(1.1,2)} ;
+            b: array[2] of integer = a ;
+        }
+        

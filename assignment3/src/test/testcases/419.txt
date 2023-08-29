@@ -1,0 +1,8 @@
+
+           a,b: integer = 1,2 ;
+           c: integer = a*b  ;
+           d: integer = a%b ;
+           e: float = a + c ;
+           f: auto = d%e ;
+           main: function void() {}
+        

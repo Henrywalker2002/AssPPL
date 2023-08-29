@@ -1,0 +1,8 @@
+
+           a: array[2,3] of integer = {{1,2,35}, {3,4,5}};
+           b: array[3] of float = {1.2, 1.1, 1.1};
+           c: array[3] of integer = {12,13,14};
+           d: array[3] of integer = {1,2,3} ;
+           f: array[2,3] of integer = {c,d};
+           e: array[2,3] of integer = {b,c};
+        

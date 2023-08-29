@@ -1,0 +1,15 @@
+
+        main: function void() {
+            i,j,k: integer = 0,0,0 ;
+            for (i = 1, i < 5_000 , i + 1) {
+               for (j = 1 , j < i , j + 1)  {
+                   for (k = 1, k < j, k + 1) {
+                       printInteger(i + j + k) ;
+                       i: integer = 1 ;
+                       j: integer = 1 ;
+                       k: integer = 1 ;
+                   }
+               }
+            }
+        }
+        

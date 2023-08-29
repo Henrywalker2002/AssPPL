@@ -13,8 +13,8 @@
             "program": "run.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["test", "CheckerSuite"],
-            "cwd": "${workspaceFolder}/assignment3/src"
+            "args": ["test", "CodeGenSuite"],
+            "cwd": "${workspaceFolder}/assignment4/src"
         }
     ]
     

@@ -1,0 +1,20 @@
+
+        main: function void () {
+            a: array[2] of integer = foo(1, 1) ;
+            b: float = goo({1,2}, 1) ;
+            c: auto = foo(2,2) ;
+            d: array[2] of integer = c ;
+        }
+        
+        foo: function auto (x: auto, y: auto) {
+            return {1,2};
+        }
+        goo: function auto(a: auto, b: auto) inherit foo {
+            preventDefault();
+            return 1;
+            return 1.1;
+            return true ;
+            a = foo(1,2) ;
+        } 
+        
+        

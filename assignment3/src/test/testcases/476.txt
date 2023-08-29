@@ -1,0 +1,7 @@
+
+        foo: function void (inherit a: integer, inherit b: auto) {}
+        print: function void(c: auto, a: integer, c: integer) inherit foo {
+            super(1, 2) ;
+            a: integer = 1 ;
+        }
+        

@@ -1,0 +1,46 @@
+
+        abc: function void (a: string) {
+            printString(a) ;
+        }
+        len: function integer (s: string) inherit printString {
+            super(s);
+            return 10 ;
+        }
+        find: function string (s: string , ch: string) inherit abc {
+            super(s);
+            i: integer = 0 ;
+            result: integer = -1 ;
+            while (i <= len(s) - 1) {
+                break;
+                while (i < 1) {
+                    {
+                        if (len(s) > 1) { 
+                            result = i ;
+                            break ; 
+                        }
+                        else {
+                            i = i + 1 ; 
+                            continue ;
+                        } 
+                    }
+                    printInteger(i);
+                }
+            }
+            return "abc"::"def" ;
+        }
+        main: function void() {
+            result: integer = 0 ; 
+            {
+                a: integer = 1 ;
+                a = 2 ;
+                b: auto = a ;
+                temp: array[2] of integer = {1,2};
+                a = temp[1] ;
+            }
+            s: string = "Hello world!" ;
+            substr: auto = find(s, "3") ;
+            printInteger(substr) ;
+        }
+    
+
+    

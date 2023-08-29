@@ -1,0 +1,21 @@
+
+        foo: function auto () {
+            a: integer = 1 ;
+            b: float = 1 ;
+            if (a < b) {
+                return b ;
+            } else {
+                return a ;
+            } 
+        } 
+        
+        goo: function auto() {
+            a: integer = 1 ;
+            b: float = 1 ;
+            if (a < b)  return a ; else return b ;
+        }
+        main: function void() {
+            a: integer = foo() ;
+        }
+        
+        

@@ -1,0 +1,9 @@
+
+        main: function void() {
+            a: boolean ;
+            while (a) {
+               while(!a)
+                 print(a) ;
+            }
+        }
+        

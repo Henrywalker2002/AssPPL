@@ -1,1 +1,1 @@
-Undeclared Variable: sum
+Undeclared Identifier: sum

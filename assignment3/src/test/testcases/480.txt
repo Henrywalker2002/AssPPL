@@ -1,0 +1,7 @@
+
+        foo: function void (a: integer, inherit b: auto, c: auto, inherit d: auto) {}
+        print: function void(c: auto, a: integer, e: integer) inherit foo {
+            super(1, 2, b, d) ;
+            preventDefault() ;
+        }
+        

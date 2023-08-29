@@ -1,0 +1,14 @@
+
+        foo: function auto (a: auto) inherit goo {
+           super(-goo(1, 2), -foo(1));
+        }
+        
+        goo: function auto(a: float, b: auto) {
+            
+        }
+        main: function void() {
+            a: float = --------foo(1) ;
+            b: float = ------goo(1,2) ;
+            c: integer = --goo(1,2) + 1 / -goo(1,2) ;
+        }
+        

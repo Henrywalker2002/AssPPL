@@ -1,0 +1,7 @@
+
+           a,b: integer = -1, -2 ;
+           c: auto = a > b ;
+           d: auto = c == false ;
+           e: auto = c > 12 ;
+           main: function void() {}
+        

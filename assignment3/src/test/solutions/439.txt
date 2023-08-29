@@ -1,0 +1,1 @@
+Illegal array literal: ArrayLit([FuncCall(foo, [FloatLit(1.1), IntegerLit(2)]), FuncCall(goo, [FloatLit(1.1), IntegerLit(2)])])

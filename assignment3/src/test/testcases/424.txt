@@ -1,0 +1,8 @@
+
+           foo: function integer(inherit a: integer, b: float) {}
+           foo1: function void(a: integer, b: float) inherit foo {
+               
+           }
+          
+           main: function void() {}
+        

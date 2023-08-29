@@ -1,0 +1,10 @@
+
+           foo: function integer(inherit a: integer, b: integer) {}
+                a: auto = foo(foo1(1,1.1), foo1(2,true)) ;
+                b: boolean = foo1(1,2) ;
+           foo1: function auto (e: auto, b: auto) inherit foo {
+               
+           }
+        
+           main: function void() {}
+        

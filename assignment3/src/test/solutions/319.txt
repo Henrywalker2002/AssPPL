@@ -1,1 +1,1 @@
-Undeclared Variable: arr
+Undeclared Identifier: arr

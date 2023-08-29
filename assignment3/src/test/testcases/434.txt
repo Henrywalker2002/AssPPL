@@ -1,0 +1,9 @@
+
+        foo: function void (inherit a: integer, a: float) inherit bar {
+            
+        }
+        bar: function auto (e: auto, b: auto) {
+        }
+    
+        main: function void() {}
+    

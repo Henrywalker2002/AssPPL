@@ -1,0 +1,20 @@
+
+        foo: function auto () {
+            a: integer = 1 ;
+            b: float = 1 ;
+            return 1.1 ;
+            if (a < b) return b ; else return a ;
+            return true ; // don't care
+            while (true) {
+                if ((a == 1) && (a == 2)) 
+                    return 2 ;
+                else 
+                    return false ; 
+            }
+        } 
+       
+        main: function void() {
+            a: float = foo() ;
+        }
+        
+        

@@ -1,0 +1,7 @@
+
+           a: array[2,3] of integer = {{1,2,35}, {3,4,5}};
+           b: auto = a[0,1];
+           c: float = b ;
+           d: boolean = b ;
+           main: function void() {}
+        

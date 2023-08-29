@@ -1,0 +1,1 @@
+Type mismatch in expression: ArrayLit([FuncCall(foo, [FloatLit(1.1)]), FuncCall(foo, [IntegerLit(1)]), UnExpr(-, FuncCall(foo, [IntegerLit(2)])), UnExpr(-, FuncCall(foo, [FloatLit(1.1)]))])

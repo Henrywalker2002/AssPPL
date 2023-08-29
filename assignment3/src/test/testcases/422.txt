@@ -1,0 +1,11 @@
+
+           a,b: integer = -1, -2 ;
+           c,d: float = 1,2.2 ;
+           e,f: auto = c >= d , a == b ;
+           g,h : auto = "hello", "world" ;
+           i: auto = g::h ;
+           t: boolean = !e ;
+           k: auto =  1 != f || ( f == e) || false || (true || e );
+           l: float = k ;
+           main: function void() {}
+        

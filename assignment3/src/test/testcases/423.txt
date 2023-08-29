@@ -1,0 +1,9 @@
+
+           a: array [2] of integer = {foo1() , foo2() };
+           foo1: function auto() {}
+           foo2: function auto() {}
+           c: auto = foo1() ;
+           d: auto = c + 1.1 ;
+           e: integer = d ;
+           main: function void() {}
+        

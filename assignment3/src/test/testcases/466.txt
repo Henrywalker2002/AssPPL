@@ -1,0 +1,9 @@
+
+        foo: function auto(x: auto, y: auto) {
+          a : boolean = foo(1,2) ;
+          do {
+              a: integer = 1 ;
+          } while(a > 2);
+          return 1.1 ;
+        }
+        
